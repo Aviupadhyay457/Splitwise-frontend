@@ -1,1 +1,45 @@
 <p>login works! 123</p>
+<!-- <div class="form-div">
+    <form class="form" (ngSubmit)="OnFormSubmitted(registrationForm)" #registrationForm="ngForm">
+
+
+        <div class="form-element">
+            <label for="user-email">Email</label>
+            <input type="email" name="email" id="user-email" ngModel required email #userEmail="ngModel"/>
+            <div>
+                <small *ngIf="userEmail.invalid && userEmail.touched">*enter a valid email</small>
+            </div>
+        </div>
+
+
+        <div class="form-element" [ngStyle]="{display:registrationForm.controls['email'].valid?'block':'none'}">
+            <div class="form-element">
+                <label for="first-name">First Name</label>
+                <input type="string" name="firstName" id="first-name" ngModel required/>
+            </div>
+
+            <div class="form-element">
+                <label for="last-name">Last Name</label>
+                <input type="string" name="lastName" id="last-name" ngModel required/>
+            </div>
+        </div>
+
+
+        <div class="form-element">
+            <label for="password">Password</label>
+            <input type="password" id="user-password" name="password" ngModel required/>
+        </div>
+
+
+        <div class="form-element">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" name="confirmPassword" ngModel required/>
+        </div>
+
+
+        <input type="submit" value="submit" [disabled]="registrationForm.invalid">
+
+
+    </form>
+</div>
+  -->

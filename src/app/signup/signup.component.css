@@ -1,0 +1,190 @@
+
+:host{
+    background-color: #F2F2F2;
+    height: 100vh;
+}
+.form-div{
+    width:550px;
+    /* border: 1px solid black; */
+    padding: 2rem, 4rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color:#ffffff;
+}
+.form-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap:0.5rem;
+    /* border:1px solid red; */
+    padding-top: 1rem;
+    /* padding-bottom: 1rem; */
+}
+.form-header img{
+    width: 24px;
+    height: 24px;
+}
+.form-header h1{
+    font-size: 1.5rem;
+    font-weight: 500;
+    color:#151515;
+    /* letter-spacing: -2%; */
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    gap:2rem;
+    padding: 1rem;
+    /* border:3px solid blue; */
+    
+}
+
+.form-element{
+    display: flex;
+    flex-direction: column;
+    gap:0.25rem;
+}
+.label-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.form-element label{
+    font-weight: 700;
+    font-size: 1rem;
+}
+.label-container i.fa-circle-xmark{
+    color:#f25022
+}
+.label-container i.fa-circle-check{
+    color:#1CC29F
+}
+.label-container i.fa-eye , .label-container i.fa-eye-slash{
+    cursor: pointer;
+}
+.form-element input{
+    line-height: 2.25;
+    border-radius: 6px;
+    border:1px solid #808084;
+    font-size: 1rem;
+    padding-left:0.5rem;
+    width: 100%;
+}
+input:focus {
+    outline: none !important;
+    border:1px solid red;
+    box-shadow: 0 0 10px #719ECE;
+  }
+
+input.ng-invalid.ng-dirty{
+    border:3px solid #f25022;
+}
+input.ng-valid.ng-dirty{
+    border:3px solid #1CC29F;
+}
+.name-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:2rem;
+}
+
+small{
+    color:red;
+    font-weight: 800;
+}
+
+.form-element ul{
+    padding-top: 0.5rem;
+    padding-left: 0.25rem;
+    color:#8C8C8C;
+    font-size: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap:0.25rem;
+    list-style: none;
+    margin: 0;
+
+    
+}
+li::before{
+    content: '●';
+
+}
+.form-element ul li{
+    display: flex;
+    flex-direction: row;
+    gap:0.25rem;
+}
+.password-validation-mark{
+    color:#1CC29F;  
+}
+.password-validation-mark::before{
+    content:'🗸'
+}
+
+.passwords-container{
+    display: flex;
+    flex-direction: column;
+    gap:2rem;
+}
+
+input[type="submit"]:focus{
+    outline: none;
+}
+/* .btn{
+    
+    color:white;
+    border:none;
+    border-radius: 9999px;
+    font-size: 1rem;
+    padding: 0.75rem;
+    width: 95%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+} */
+.continue-btn, .sign-up-btn{
+    background-color: #1CC29F;
+    color:white;
+    border:none;
+    border-radius: 9999px;
+    font-size: 1rem;
+    padding: 0.75rem;
+    width: 95%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    cursor:pointer;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+/* .sign-up-btn{
+    background-color: #1CC29F;
+    cursor:pointer;
+} */
+
+
+.continue-btn-disabled, .sign-up-btn-disabled{
+    background-color: #808084;
+    opacity: 40%;
+    pointer-events: none;
+    cursor:not-allowed;
+
+    color:white;
+    border:none;
+    border-radius: 9999px;
+    font-size: 1rem;
+    padding: 0.75rem;
+    width: 95%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}

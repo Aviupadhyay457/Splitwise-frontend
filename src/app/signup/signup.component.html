@@ -1,1 +1,75 @@
-<p>signup works!</p>
+<div class="form-div">
+    <div class="form-header">
+        <img src="assets/png/splitwise-pentagon.png">
+        <h1>Join Splitwise today</h1>
+    </div>
+    <form class="form" (ngSubmit)="OnFormSubmitted(registrationForm)" #registrationForm="ngForm">
+
+        <div class="form-element" >
+            <div class="label-container">
+                <label for="email">Email</label>
+                <i class="fa-solid fa-circle-xmark" *ngIf="registerEmail.invalid && registerEmail.dirty"></i>
+                <i class="fa-solid fa-circle-check" *ngIf="registerEmail.valid && registerEmail.dirty"></i>
+            </div>
+            <input type="email" name="email" id="email"  ngModel required email #registerEmail="ngModel"/>
+        </div>
+
+        <div class="name-container" *ngIf="showFields">
+            <div class="form-element">
+                <div class="label-container">
+                    <label for="firstName">FirstName</label>
+                    <i class="fa-solid fa-circle-xmark" *ngIf="firstName.invalid && firstName.dirty"></i>
+                    <i class="fa-solid fa-circle-check" *ngIf="firstName.valid && firstName.dirty"></i>
+                </div>
+                <input type="text" name="firstName" id="firstName" minlength="2" ngModel required  #firstName="ngModel"/>
+            </div>
+
+            <div class="form-element" >
+                <div class="label-container">
+                    <label for="lastName">LastName</label>
+                    <i class="fa-solid fa-circle-xmark" *ngIf="lastName.invalid && lastName.dirty"></i>
+                    <i class="fa-solid fa-circle-check" *ngIf="lastName.valid && lastName.dirty"></i>
+                </div>
+                <input type="text" name="lastName" id="lastName" minlength="2" ngModel required  #lastName="ngModel"/>
+            </div>
+        </div>
+
+        <div class="passwords-container" *ngIf="showFields" >
+
+        
+            <div class="form-element" >
+
+                <div class="label-container">
+                    <label for="password">Password</label>
+                    <i class="fa-solid fa-eye" (click)="hidePass()" *ngIf="passwordType==='text' && password.dirty" [ngStyle]="{color:(password.valid && password.dirty)?'#1CC29F':'#f25022'}"></i>
+                    <i class="fa-solid fa-eye-slash" (click)="showPass()" *ngIf="passwordType==='password'  && password.dirty"[ngStyle]="{color:(password.valid && password.dirty)?'#1CC29F':'#f25022'}"></i>
+                </div>
+
+                <input [type]='passwordType' name="password" id="password" minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" [(ngModel)]="passwordForChecks" required  #password="ngModel"/>
+
+                <ul *ngIf="password.dirty">
+                    <li [ngClass]="{'password-validation-mark':lowerCaseValidation(passwordForChecks)}">One lowercase character</li>
+                    <li [ngClass]="{'password-validation-mark':upperCaseValidation(passwordForChecks)}">One uppercase character</li>
+                    <li [ngClass]="{'password-validation-mark':numberValidation(passwordForChecks)}">One Number</li>
+                    <li [ngClass]="{'password-validation-mark':specialCharValidation(passwordForChecks)}">One Special character</li>
+                    <li [ngClass]="{'password-validation-mark':lengthValidation(passwordForChecks)}">8 characters minimum</li>
+                </ul>
+                </div>
+
+            <div class="form-element" *ngIf="checkAllValidation(passwordForChecks)">
+                <div class="label-container">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <i class="fa-solid fa-circle-xmark" *ngIf="confirmPassword.dirty && password.value!==confirmPassword.value"></i>
+                    <i class="fa-solid fa-circle-check" *ngIf="confirmPassword.dirty && password.value===confirmPassword.value"></i>
+                </div>
+                <input type="password" name="confirmPassword" id="confirmPassword" [ngStyle]="{borderColor:confirmPassword.dirty && password.value===confirmPassword.value?'#1CC29F':(confirmPassword.dirty?'#f25022':'#000000')}"  ngModel required  #confirmPassword="ngModel"/>
+            </div>
+        </div>
+
+        <input type="submit" value="Sign up" *ngIf="showFields" class="sign-up-btn" [disabled]="registrationForm.controls['password']?.value!==registrationForm.controls['confirmPassword']?.value" [ngClass]="{'sign-up-btn-disabled':registrationForm.controls['password']?.value!==registrationForm.controls['confirmPassword']?.value}" />
+    
+        
+    </form>
+    <button [ngClass]="{'continue-btn':true, 'continue-btn-disabled':registrationForm.controls['email']?.invalid}" [disabled]="registrationForm.controls['email']?.invalid" (click)="continueBtnClick()" *ngIf="!showFields" >Continue</button>
+</div>
+ 
