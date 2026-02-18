@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import {Md5} from 'ts-md5';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'signup',
@@ -10,29 +12,41 @@ export class SignupComponent {
   passwordType="password";
   passwordForChecks='';
   showFields=false;
-
-  errorString=''
-  errorjson={
-    name:"",
-    message:""
-  }
+  formData:any={}
+  hashedPassword=''
+  credentialsString=''
+  constructor(private http: HttpClient) {}
   OnFormSubmitted(form:NgForm){
-    console.log(form)
-    console.log(form.value.firstName);
-    console.log(form.value.lastName);
-    console.log(form.value.email);
-    console.log(form.value.password);
-    console.log(form.value.confirmPassword);
-    console.log(form.controls['email'].dirty);
+    // console.log(form);
+    // console.log(form.value.firstName)
+    this.hashedPassword=Md5.hashStr(form.value.password)
+    this.credentialsString=btoa(`"hashedPassword":"${this.hashedPassword}"`)
 
-    if(form.controls['email'])
-
-    if(form.controls['password'].value!==form.controls['confirmPassword'].value){
-      this.errorString="Your confirmed Password is worng"
+    const jsonInput={
+      "firstName":form.value.firstName,
+      "lastName":form.value.lastName,
+      "email":form.value.email,
+      "credentials":this.credentialsString
     }
-     console.log(this.errorString)
+    
 
+    // console.log(jsonInput)
+    // console.log(this.credentialsString)
+
+    this.http.post('https://localhost:7032/api/users', jsonInput)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          alert("user added successfully")
+        },
+        error: (err) => {
+          console.error(err);
+          alert("couldnt add the user, try again.")
+        }
+      });
+    
   }
+
   continueBtnClick(){
     this.showFields=true
   }
@@ -52,8 +66,6 @@ export class SignupComponent {
     return /\d/.test(passwordForChecks)
   }
   specialCharValidation(passwordForChecks:string){
-    //?=.*[@$!%*?&
-    // let arr=['@','#','%','&','+','=','[']
     let arr=['?','=','.','*','[','@','$','!','%','*','?','&']
     return arr.some(char=>passwordForChecks.includes(char));
   }

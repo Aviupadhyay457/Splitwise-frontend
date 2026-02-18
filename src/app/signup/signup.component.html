@@ -1,7 +1,7 @@
 <div class="form-div">
     <div class="form-header">
         <img src="assets/png/splitwise-pentagon.png">
-        <h1>Join Splitwise today</h1>
+        <h1>Create your free account</h1>
     </div>
     <form class="form" (ngSubmit)="OnFormSubmitted(registrationForm)" #registrationForm="ngForm">
 
@@ -41,8 +41,8 @@
 
                 <div class="label-container">
                     <label for="password">Password</label>
-                    <i class="fa-solid fa-eye" (click)="hidePass()" *ngIf="passwordType==='text' && password.dirty" [ngStyle]="{color:(password.valid && password.dirty)?'#1CC29F':'#f25022'}"></i>
-                    <i class="fa-solid fa-eye-slash" (click)="showPass()" *ngIf="passwordType==='password'  && password.dirty"[ngStyle]="{color:(password.valid && password.dirty)?'#1CC29F':'#f25022'}"></i>
+                    <i class="fa-solid fa-eye" (click)="hidePass()" *ngIf="passwordType==='text' && password.dirty" [ngStyle]="{color:(password.valid && password.dirty)?'#9147FF':'#f25022'}"></i>
+                    <i class="fa-solid fa-eye-slash" (click)="showPass()" *ngIf="passwordType==='password'  && password.dirty"[ngStyle]="{color:(password.valid && password.dirty)?'#9147FF':'#f25022'}"></i>
                 </div>
 
                 <input [type]='passwordType' name="password" id="password" minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" [(ngModel)]="passwordForChecks" required  #password="ngModel"/>
@@ -62,13 +62,12 @@
                     <i class="fa-solid fa-circle-xmark" *ngIf="confirmPassword.dirty && password.value!==confirmPassword.value"></i>
                     <i class="fa-solid fa-circle-check" *ngIf="confirmPassword.dirty && password.value===confirmPassword.value"></i>
                 </div>
-                <input type="password" name="confirmPassword" id="confirmPassword" [ngStyle]="{borderColor:confirmPassword.dirty && password.value===confirmPassword.value?'#1CC29F':(confirmPassword.dirty?'#f25022':'#000000')}"  ngModel required  #confirmPassword="ngModel"/>
+                <input type="password" name="confirmPassword" id="confirmPassword" [ngStyle]="{borderColor:confirmPassword.dirty && password.value===confirmPassword.value?'#9147FF':(confirmPassword.dirty?'#f25022':'#000000')}"  ngModel required  #confirmPassword="ngModel"/>
             </div>
         </div>
 
-        <input type="submit" value="Sign up" *ngIf="showFields" class="sign-up-btn" [disabled]="registrationForm.controls['password']?.value!==registrationForm.controls['confirmPassword']?.value" [ngClass]="{'sign-up-btn-disabled':registrationForm.controls['password']?.value!==registrationForm.controls['confirmPassword']?.value}" />
+        <input type="submit" value="Sign up" *ngIf="showFields" class="sign-up-btn" [disabled]="registrationForm.controls['password']?.value!==registrationForm.controls['confirmPassword']?.value" [ngClass]="{'sign-up-btn-disabled':registrationForm.controls['password']?.value!==registrationForm.controls['confirmPassword']?.value || registrationForm.valid===false }" />
     
-        
     </form>
     <button [ngClass]="{'continue-btn':true, 'continue-btn-disabled':registrationForm.controls['email']?.invalid}" [disabled]="registrationForm.controls['email']?.invalid" (click)="continueBtnClick()" *ngIf="!showFields" >Continue</button>
 </div>
