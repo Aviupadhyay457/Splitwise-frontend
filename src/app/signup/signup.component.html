@@ -70,5 +70,12 @@
     
     </form>
     <button [ngClass]="{'continue-btn':true, 'continue-btn-disabled':registrationForm.controls['email']?.invalid}" [disabled]="registrationForm.controls['email']?.invalid" (click)="continueBtnClick()" *ngIf="!showFields" >Continue</button>
+
+    <div class="seperation-line">
+        <span>or</span>
+    </div>
+    <div class="log-in">
+        <a routerLink="/Login">Have an account? Log in</a>
+    </div>
 </div>
  

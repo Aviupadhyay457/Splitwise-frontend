@@ -5,7 +5,15 @@ header{
     justify-content: space-between;
     align-items: center;
     background: #fff;
+    /* border:1px solid red; */
+    width: 100%;
 }
+/* header div{
+    border:1px solid red;
+}
+.test{
+    border: 1px solid red;
+} */
 
 header div a{
     text-decoration: none;

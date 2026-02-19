@@ -164,7 +164,7 @@ input[type="submit"]:focus{
     margin-left: auto;
     margin-right: auto;
     cursor:pointer;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     margin-bottom: 1.5rem;
 }
 /* .sign-up-btn{
@@ -188,10 +188,54 @@ input[type="submit"]:focus{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     margin-bottom: 1.5rem;
 }
 input[type="submit"],
 button {
   border: none;
+}
+input[type="submit"]:hover{
+    filter: brightness(0.95);
+}
+button:hover{
+    filter: brightness(0.95);
+}
+.seperation-line{
+   width: auto;
+   text-align: center; 
+   border-bottom: 1px solid #E5E4E2; 
+   line-height: 0.1em;
+   /* margin: 10px 0 20px;  */
+   margin-left:1rem;
+   margin-bottom: 1rem;
+   margin-right: 1rem;
+   
+}
+
+.seperation-line span{
+    background: #ffffff;
+    color:#C0C0C0; 
+    padding:0 10px; 
+}
+
+.log-in{
+    margin-top: 0.5rem;
+    color:#9147FF;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+.log-in a{
+    font-weight: 600;
+    text-decoration: none;
+
+}
+
+.log-in  a:visited, a:hover, a:active {
+    color: inherit;
+    text-decoration: none;
 }

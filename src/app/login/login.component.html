@@ -1,45 +1,39 @@
-<p>login works! 123</p>
-<!-- <div class="form-div">
-    <form class="form" (ngSubmit)="OnFormSubmitted(registrationForm)" #registrationForm="ngForm">
+<div class="form-div">
+    <div class="form-header">
+        <img src="assets/png/splitwise-pentagon.png">
+        <h1>Log in to Splitwise</h1>
+    </div>
+    <form (ngSubmit)="OnFormSubmitted(loginForm)" #loginForm="ngForm">
 
-
-        <div class="form-element">
-            <label for="user-email">Email</label>
-            <input type="email" name="email" id="user-email" ngModel required email #userEmail="ngModel"/>
-            <div>
-                <small *ngIf="userEmail.invalid && userEmail.touched">*enter a valid email</small>
+        <div class="form-element" >
+            <div class="label-container">
+                <label for="email">Email</label>
+                <i class="fa-solid fa-circle-xmark" *ngIf="loginEmail.invalid && loginEmail.dirty"></i>
+                <i class="fa-solid fa-circle-check" *ngIf="loginEmail.valid && loginEmail.dirty"></i>
             </div>
+            <input type="email" name="email" id="email"  ngModel required email #loginEmail="ngModel"/>
+            <!-- <small>Invalid email</small> -->
         </div>
 
+        <div class="form-element" >
 
-        <div class="form-element" [ngStyle]="{display:registrationForm.controls['email'].valid?'block':'none'}">
-            <div class="form-element">
-                <label for="first-name">First Name</label>
-                <input type="string" name="firstName" id="first-name" ngModel required/>
+            <div class="label-container">
+                <label for="password">Password</label>
+                <i class="fa-solid fa-eye" (click)="hidePass()" *ngIf="passwordType==='text' && password.dirty" [ngStyle]="{color:(password.valid && password.dirty)?'#9147FF':'#f25022'}"></i>
+                <i class="fa-solid fa-eye-slash" (click)="showPass()" *ngIf="passwordType==='password'  && password.dirty"[ngStyle]="{color:(password.valid && password.dirty)?'#9147FF':'#f25022'}"></i>
             </div>
 
-            <div class="form-element">
-                <label for="last-name">Last Name</label>
-                <input type="string" name="lastName" id="last-name" ngModel required/>
-            </div>
+            <input [type]='passwordType' name="password" id="password" minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" ngModel required  #password="ngModel"/>
+
+
         </div>
-
-
-        <div class="form-element">
-            <label for="password">Password</label>
-            <input type="password" id="user-password" name="password" ngModel required/>
-        </div>
-
-
-        <div class="form-element">
-            <label for="confirm-password">Confirm Password</label>
-            <input type="password" id="confirm-password" name="confirmPassword" ngModel required/>
-        </div>
-
-
-        <input type="submit" value="submit" [disabled]="registrationForm.invalid">
-
+        <input type="submit" value="Log in" class="sign-up-btn" [ngClass]="{'sign-up-btn-disabled':loginForm.invalid}" />
 
     </form>
+    <div class="seperation-line">
+        <span>or</span>
+    </div>
+    <div class="log-in">
+        <a routerLink="/Signup">New to Splitwise? Signup here</a>
+    </div>
 </div>
-  -->
