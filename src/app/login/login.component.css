@@ -179,3 +179,71 @@ input[type="submit"]:hover{
     color: inherit;
     text-decoration: none;
 }
+
+.label-container a:link,
+.label-container a:visited,
+.label-container a:hover,
+.label-container a:active,
+.label-container a:focus {
+  color: inherit;
+  text-decoration: none;
+}
+
+.forgot-pwd-link {
+  display: block;
+  text-align: right;
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: #9147FF;
+}
+.forgot-pwd-link:link,
+.forgot-pwd-link:visited,
+.forgot-pwd-link:hover,
+.forgot-pwd-link:active,
+.forgot-pwd-link:focus {
+  color: #9147FF;
+  text-decoration: none;
+}
+
+.status-banner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 1rem 0 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.status-success {
+    background-color: #f0eaff;
+    color: #5a1fa8;
+    border: 1px solid #c9a8ff;
+}
+
+.status-error {
+    background-color: #fff0ee;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+}
+
+.dismiss-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: inherit;
+    opacity: 0.6;
+    padding: 0 0 0 0.75rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.dismiss-btn:hover {
+    opacity: 1;
+    filter: none;
+}

@@ -1,7 +1,17 @@
 <div class="form-div">
+
+    <div class="status-banner status-success" *ngIf="statusMessage && statusSuccess">
+        <span>{{ statusMessage }}</span>
+        <button class="dismiss-btn" (click)="dismissStatus()">&#10005;</button>
+    </div>
+    <div class="status-banner status-error" *ngIf="statusMessage && !statusSuccess">
+        <span>{{ statusMessage }}</span>
+        <button class="dismiss-btn" (click)="dismissStatus()">&#10005;</button>
+    </div>
+
     <div class="form-header">
-        <img src="assets/png/splitwise-pentagon.png">
-        <h1>Log in to Splitwise</h1>
+        <img src="assets/png/moneysplit-logo-2.png">
+        <h1>Log in to Moneysplit</h1>
     </div>
     <form (ngSubmit)="OnFormSubmitted(loginForm)" #loginForm="ngForm">
 
@@ -24,9 +34,9 @@
             </div>
 
             <input [type]='passwordType' name="password" id="password" minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" ngModel required  #password="ngModel"/>
-
-
+            <a routerLink="/ForgotPassword" class="forgot-pwd-link">Forgot Password?</a>
         </div>
+        
         <input type="submit" value="Log in" class="sign-up-btn" [ngClass]="{'sign-up-btn-disabled':loginForm.invalid}" />
 
     </form>

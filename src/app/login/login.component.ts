@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {Md5} from 'ts-md5';
 import { HttpClient } from '@angular/common/http';
@@ -9,12 +9,27 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     passwordType="password";
     emailPopup=true
     hashedPassword=''
     credentialsString=''
+    statusMessage: string | null = null;
+    statusSuccess = false;
+
     constructor(private http: HttpClient) {}
+
+    ngOnInit() {
+      const state = history.state;
+      if (state?.message) {
+        this.statusMessage = state.message;
+        this.statusSuccess = state.success;
+      }
+    }
+
+    dismissStatus() {
+      this.statusMessage = null;
+    }
     hidePass(){
     this.passwordType="password"
     }
