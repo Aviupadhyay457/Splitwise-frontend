@@ -1,0 +1,14 @@
+<div class="page">
+  <div class="content">
+    <img src="assets/png/moneysplit-logo-1.png" class="logo" alt="Moneysplit" />
+    <h1 class="heading">Great, now<br />check your inbox</h1>
+    <p class="subtitle">
+      We sent a verification link to<br />
+      <span class="email-highlight" *ngIf="email">{{ email }}</span>
+      <span *ngIf="!email">your email address</span>.
+      <br />Click the link to complete your registration.
+    </p>
+    <p class="spam-note">Didn't receive it? Check your spam or junk folder.</p>
+  </div>
+
+</div>

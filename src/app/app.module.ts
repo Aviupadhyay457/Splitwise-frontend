@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { GroupComponent } from './group/group.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
+import { VerifyEmailComponent } from './signup/verify-email/verify-email.component';
+import { CheckEmailComponent } from './signup/check-email/check-email.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,10 @@ import { CreateGroupComponent } from './create-group/create-group.component';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     GroupComponent,
-    CreateGroupComponent
+    CreateGroupComponent,
+    VerifyEmailComponent,
+    CheckEmailComponent
+
   ],
   imports: [
     BrowserModule,
