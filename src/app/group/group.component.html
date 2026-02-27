@@ -1,0 +1,21 @@
+<div class="group-page">
+
+  <div class="group-header">
+    <h2>My Groups</h2>
+    <button class="create-btn" routerLink="/group/create">
+      + Start a New Group
+    </button>
+  </div>
+
+  <div *ngIf="groups.length === 0" class="empty">
+    No groups found.
+  </div>
+
+  <div class="group-grid">
+    <div class="group-card" *ngFor="let group of groups">
+      <h3>{{ group.groupName }}</h3>
+      <p>{{ group.description || 'No description available' }}</p>
+    </div>
+  </div>
+
+</div>

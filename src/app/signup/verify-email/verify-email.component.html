@@ -1,0 +1,102 @@
+
+<div class="page-loading" *ngIf="state === 'loading'">
+  <img
+    src="assets/png/moneysplit-logo-1.png"
+    class="loader-logo"
+    alt="Loading"
+  />
+</div>
+
+
+<div class="result-card" *ngIf="state === 'success'">
+
+  <div class="card-body">
+    <div class="app-brand">
+      <img src="assets/png/moneysplit-logo-1.png" class="brand-logo" alt="Moneysplit" />
+    </div>
+
+    <div class="illustration-wrap">
+      <img
+        src="assets/jpg/email-verification-success-illustration.jpg"
+        alt="Email verified"
+      />
+    </div>
+
+    <div class="state-content">
+      <div class="status-badge badge-success">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>Verified</span>
+      </div>
+      <h1 class="state-heading">You're all set!</h1>
+      <p class="state-message">
+        Email verified successfully. You may now log in.
+      </p>
+      <button class="cta-btn btn-success" (click)="goTo('/Login')">
+        Go to Login
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="result-card" *ngIf="state === 'expired'">
+
+  <div class="card-body">
+    <div class="app-brand">
+      <img src="assets/png/moneysplit-logo-1.png" class="brand-logo" alt="Moneysplit" />
+    </div>
+
+    <div class="illustration-wrap">
+      <img
+        src="assets/jpg/email-verification-failed-illustration-2.jpg"
+        alt="Token expired"
+      />
+    </div>
+
+    <div class="state-content">
+      <div class="status-badge badge-expired">
+        <i class="fa-solid fa-clock"></i>
+        <span>Expired</span>
+      </div>
+      <h1 class="state-heading">Oops!</h1>
+      <p class="state-message">{{ errorMessage }}</p>
+      <button class="cta-btn btn-expired" (click)="goTo('/')">
+        Go to Home
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="result-card" *ngIf="state === 'invalid'">
+  <!-- <div class="card-stripe stripe-invalid"></div> -->
+
+  <div class="card-body">
+    <div class="app-brand">
+      <img src="assets/png/moneysplit-logo-1.png" class="brand-logo" alt="Moneysplit" />
+    </div>
+
+    <div class="illustration-wrap">
+      <img
+        src="assets/jpg/email-verification-failed-illustration.jpg"
+        alt="Invalid token"
+      />
+    </div>
+
+    <div class="state-content">
+      <div class="status-badge badge-invalid">
+        <i class="fa-solid fa-circle-xmark"></i>
+        <span>Invalid</span>
+      </div>
+      <h1 class="state-heading">Oops!</h1>
+      <p class="state-message">{{ errorMessage }}</p>
+      <button class="cta-btn btn-invalid" (click)="goTo('/')">
+        Go to Home
+      </button>
+    </div>
+  </div>
+</div>

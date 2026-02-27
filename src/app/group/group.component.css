@@ -1,0 +1,119 @@
+/* =========================
+   GROUP PAGE LAYOUT
+========================= */
+
+.group-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* =========================
+   HEADER SECTION
+========================= */
+
+.group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-shrink: 0;
+}
+
+.group-header h2 {
+  font-size: 26px;
+  margin: 0;
+  color: #333;
+}
+
+/* =========================
+   PRIMARY BUTTON
+========================= */
+
+.create-btn {
+  background-color: #9147ff;
+  color: #ffffff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.create-btn:hover {
+  background-color: #7a34e6;
+  transform: translateY(-2px);
+}
+
+/* =========================
+   GROUP LIST (SCROLL AREA)
+========================= */
+
+.group-grid {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-right: 10px;
+}
+
+/* Custom Scrollbar */
+.group-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.group-grid::-webkit-scrollbar-thumb {
+  background: #9147ff;
+  border-radius: 10px;
+}
+
+/* =========================
+   GROUP CARD
+========================= */
+
+.group-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  border-top: 4px solid #9147ff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.group-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+}
+
+.group-card h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.group-card p {
+  margin: 0;
+  color: #555;
+}
+
+.group-footer {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #777;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty {
+  text-align: center;
+  color: #999;
+  font-size: 15px;
+  margin-top: 20px;
+}
