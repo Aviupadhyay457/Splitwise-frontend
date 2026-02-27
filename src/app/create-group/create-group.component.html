@@ -1,0 +1,32 @@
+<div class="group-page">
+
+  <div class="group-header">
+    <h2>Create New Group</h2>
+  </div>
+
+  <div class="group-form-card">
+
+    <div class="form-group">
+      <label>Group Name</label>
+      <input
+        type="text"
+        [(ngModel)]="newGroup.groupName"
+        placeholder="Enter group name" />
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea
+        [(ngModel)]="newGroup.description"
+        placeholder="Enter description">
+      </textarea>
+    </div>
+
+    <div class="button-row">
+      <button class="primary-btn" (click)="createGroup()">Create</button>
+      <button class="secondary-btn" (click)="cancel()">Cancel</button>
+    </div>
+
+  </div>
+
+</div>

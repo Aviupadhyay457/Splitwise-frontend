@@ -12,6 +12,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { GroupComponent } from './group/group.component';
+import { CreateGroupComponent } from './create-group/create-group.component';
 import { VerifyEmailComponent } from './signup/verify-email/verify-email.component';
 import { CheckEmailComponent } from './signup/check-email/check-email.component';
 
@@ -25,8 +27,11 @@ import { CheckEmailComponent } from './signup/check-email/check-email.component'
     LoginComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    GroupComponent,
+    CreateGroupComponent,
     VerifyEmailComponent,
     CheckEmailComponent
+
   ],
   imports: [
     BrowserModule,
