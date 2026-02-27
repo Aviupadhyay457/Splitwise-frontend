@@ -1,0 +1,56 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #F2F2F2;
+  position: relative;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 540px;
+  padding: 2rem 1.5rem;
+}
+
+.logo {
+  width: 40%;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+
+.heading {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #151515;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.email-highlight {
+  color: #9147FF;
+  font-weight: 600;
+}
+
+.spam-note {
+  font-size: 0.85rem;
+  color: #999;
+  margin-top: 0.25rem;
+}
