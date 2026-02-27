@@ -12,6 +12,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { VerifyEmailComponent } from './signup/verify-email/verify-email.component';
+import { CheckEmailComponent } from './signup/check-email/check-email.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
     SignupComponent,
     LoginComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    VerifyEmailComponent,
+    CheckEmailComponent
   ],
   imports: [
     BrowserModule,

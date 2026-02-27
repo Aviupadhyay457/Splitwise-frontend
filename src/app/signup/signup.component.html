@@ -9,9 +9,32 @@
             <div class="label-container">
                 <label for="email">Email</label>
                 <i class="fa-solid fa-circle-xmark" *ngIf="registerEmail.invalid && registerEmail.dirty"></i>
-                <i class="fa-solid fa-circle-check" *ngIf="registerEmail.valid && registerEmail.dirty"></i>
+                <i class="fa-solid fa-circle-check" *ngIf="registerEmail.valid && registerEmail.dirty && !emailAlreadyExists"></i>
             </div>
-            <input type="email" name="email" id="email"  ngModel required email #registerEmail="ngModel"/>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              ngModel
+              required
+              email
+              #registerEmail="ngModel"
+              [class.email-exists-border]="emailAlreadyExists"
+              (ngModelChange)="onEmailChange($event)"
+            />
+
+            
+            <div class="email-exists-nudge" *ngIf="emailAlreadyExists">
+                <div class="nudge-body">
+                    <!-- <span class="nudge-icon">&#9888;</span> -->
+                    <div class="nudge-text">
+                        <span>An account with this email already exists.</span>
+                        <div class="nudge-actions">
+                            <button class="nudge-login-btn" type="button" (click)="goToLogin(registrationForm)">Log in instead &#8594;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="name-container" *ngIf="showFields">
@@ -66,7 +89,14 @@
             </div>
         </div>
 
-        <input type="submit" value="Sign up" *ngIf="showFields" class="sign-up-btn" [disabled]="registrationForm.controls['password']?.value!==registrationForm.controls['confirmPassword']?.value" [ngClass]="{'sign-up-btn-disabled':registrationForm.controls['password']?.value!==registrationForm.controls['confirmPassword']?.value || registrationForm.valid===false }" />
+        <input
+          type="submit"
+          [value]="isLoading ? 'Creating account...' : 'Sign up'"
+          *ngIf="showFields"
+          class="sign-up-btn"
+          [disabled]="registrationForm.controls['password']?.value!==registrationForm.controls['confirmPassword']?.value || isLoading"
+          [ngClass]="{'sign-up-btn-disabled': registrationForm.controls['password']?.value!==registrationForm.controls['confirmPassword']?.value || registrationForm.valid===false || isLoading}"
+        />
     
     </form>
     <button [ngClass]="{'continue-btn':true, 'continue-btn-disabled':registrationForm.controls['email']?.invalid}" [disabled]="registrationForm.controls['email']?.invalid" (click)="continueBtnClick()" *ngIf="!showFields" >Continue</button>
