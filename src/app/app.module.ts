@@ -6,10 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// Public layout shell
 import { PublicLayoutComponent } from './public/public-layout/public-layout.component';
 
-// Public components
+
 import { HomeComponent } from './public/home/home.component';
 import { HeaderComponent } from './public/header/header.component';
 import { NavbarComponent } from './public/header/navbar/navbar.component';
@@ -20,12 +19,12 @@ import { VerifyEmailComponent } from './public/signup/verify-email/verify-email.
 import { ForgotPasswordComponent } from './public/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './public/reset-password/reset-password.component';
 
-// Dashboard layout shell and parts
+
 import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-layout.component';
 import { DashboardHeaderComponent } from './layout/header/dashboard-header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 
-// Dashboard pages
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GroupComponent } from './groups/group.component';
 import { CreateGroupComponent } from './groups/create-group/create-group.component';
@@ -38,7 +37,6 @@ import { EditGroupComponent } from './groups/edit-group/edit-group.component';
 @NgModule({
   declarations: [
     AppComponent,
-    // Public
     PublicLayoutComponent,
     HomeComponent,
     HeaderComponent,
@@ -49,11 +47,9 @@ import { EditGroupComponent } from './groups/edit-group/edit-group.component';
     VerifyEmailComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    // Dashboard layout
     DashboardLayoutComponent,
     DashboardHeaderComponent,
     SidebarComponent,
-    // Dashboard pages
     DashboardComponent,
     GroupComponent,
     CreateGroupComponent,
