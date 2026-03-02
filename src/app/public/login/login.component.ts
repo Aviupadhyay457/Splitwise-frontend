@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {Md5} from 'ts-md5';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
     statusMessage: string | null = null;
     statusSuccess = false;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private router: Router) {}
 
     ngOnInit() {
       const state = history.state;
@@ -47,9 +48,10 @@ export class LoginComponent implements OnInit {
       console.log(jsonInput)
       this.http.post('https://localhost:7032/api/login', jsonInput)
       .subscribe({
-        next: (res) => {
-        console.log(res);
-        alert("sign in successful")
+        next: (res: any) => {
+          localStorage.setItem('token', res.data.token);
+          localStorage.setItem('userEmail', form.value.email);
+          this.router.navigate(['/dashboard']);
         },
         error: (err) => {
           console.error(err);

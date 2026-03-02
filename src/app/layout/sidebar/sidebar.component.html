@@ -1,0 +1,35 @@
+<nav class="sidebar">
+  <ul>
+    <li>
+      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/dashboard/groups" routerLinkActive="active">
+        <i class="fa-solid fa-users"></i>
+        <span>Groups</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/dashboard/activity" routerLinkActive="active">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Activity</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/dashboard/friends" routerLinkActive="active">
+        <i class="fa-solid fa-user-group"></i>
+        <span>Friends</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/dashboard/account" routerLinkActive="active">
+        <i class="fa-solid fa-gear"></i>
+        <span>Account</span>
+      </a>
+    </li>
+  </ul>
+  <button class="logout-btn" (click)="logout()">Log out</button>
+</nav>
