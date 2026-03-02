@@ -13,8 +13,36 @@
 
   <div class="group-grid">
     <div class="group-card" *ngFor="let group of groups">
-      <h3>{{ group.groupName }}</h3>
-      <p>{{ group.description || 'No description available' }}</p>
+
+      <div class="group-data">
+        <h3>{{ group.groupName }}</h3>
+        <p>{{ group.description || 'No description available' }}</p>
+      </div>
+
+
+      <!-- ACTION BUTTONS -->
+      <div class="action-row">
+
+        <!-- DETAILS -->
+        <button class="icon-btn view"
+                [routerLink]="['/dashboard/groups/details', group.groupId]">
+          <i class="fas fa-eye"></i>
+        </button>
+
+        <!-- EDIT -->
+        <button class="icon-btn edit"
+                [routerLink]="['/dashboard/groups/edit', group.groupId]">
+          <i class="fas fa-pen"></i>
+        </button>
+
+        <!-- DELETE -->
+        <button class="icon-btn delete"
+                (click)="deleteGroup(group.groupId)">
+          <i class="fas fa-trash"></i>
+        </button>
+
+      </div>
+
     </div>
   </div>
 

@@ -1,0 +1,23 @@
+<div *ngIf="group" class="details-container">
+
+  <div class="details-card">
+    <h2>{{ group.groupName }}</h2>
+
+    <div class="detail-row">
+      <span class="label">Description</span>
+      <span class="value">
+        {{ group.description || 'No description available' }}
+      </span>
+    </div>
+
+    <!-- <div class="detail-row">
+      <span class="label">Created By</span>
+      <span class="value">{{ group.createdByUserId }}</span>
+    </div> -->
+
+    <div class="button-row">
+      <button class="back-btn" (click)="back()">Back</button>
+    </div>
+  </div>
+
+</div>
