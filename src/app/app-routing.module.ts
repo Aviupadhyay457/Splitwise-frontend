@@ -18,6 +18,8 @@ import { CheckEmailComponent } from './public/signup/check-email/check-email.com
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GroupComponent } from './groups/group.component';
 import { CreateGroupComponent } from './groups/create-group/create-group.component';
+import { EditGroupComponent } from './groups/edit-group/edit-group.component';
+import { GroupDetailsComponent } from './groups/group-details/group-details.component'; 
 import { ActivityComponent } from './activity/activity.component';
 import { FriendsComponent } from './friends/friends.component';
 import { AccountComponent } from './account/account.component';
@@ -50,6 +52,8 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'groups', component: GroupComponent },
       { path: 'groups/create', component: CreateGroupComponent },
+      { path: 'groups/edit/:id', component: EditGroupComponent },
+      { path: 'groups/details/:id', component: GroupDetailsComponent },
       { path: 'activity', component: ActivityComponent },
       { path: 'friends', component: FriendsComponent },
       { path: 'account', component: AccountComponent },

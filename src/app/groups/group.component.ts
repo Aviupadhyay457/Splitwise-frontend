@@ -40,4 +40,30 @@ export class GroupComponent implements OnInit {
         }
       });
   }
+  
+
+  deleteGroup(id: number) {
+
+  if (!confirm('Are you sure you want to delete this group?')) {
+    return;
+  }
+
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+
+  this.http.delete<any>(`${this.apiUrl}/${id}`, { headers })
+    .subscribe({
+      next: (res) => {
+        if (res.success) {
+          alert(res.message); // "Group deleted successfully"
+          this.getGroups();
+        }
+      },
+      error: () => {
+        alert('Delete failed');
+      }
+    });
+}
 }

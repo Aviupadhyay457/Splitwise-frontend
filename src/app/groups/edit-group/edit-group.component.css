@@ -1,0 +1,70 @@
+.edit-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.edit-card {
+  width: 500px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 30px;
+  border-top: 4px solid #9147ff;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+}
+
+.edit-card h2 {
+  margin-bottom: 25px;
+  color: #9147ff;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #9147ff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(145, 71, 255, 0.2);
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+.button-row {
+  text-align: right;
+  margin-top: 15px;
+}
+
+.update-btn {
+  padding: 8px 18px;
+  background-color: #9147ff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.update-btn:hover {
+  background-color: #7a34e6;
+}
