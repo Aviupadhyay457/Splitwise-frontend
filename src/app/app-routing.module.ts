@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// Layout shells
+
 import { PublicLayoutComponent } from './public/public-layout/public-layout.component';
 import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-layout.component';
 
-// Public pages
+
 import { HomeComponent } from './public/home/home.component';
 import { LoginComponent } from './public/login/login.component';
 import { SignupComponent } from './public/signup/signup.component';
@@ -14,7 +14,7 @@ import { ResetPasswordComponent } from './public/reset-password/reset-password.c
 import { VerifyEmailComponent } from './public/signup/verify-email/verify-email.component';
 import { CheckEmailComponent } from './public/signup/check-email/check-email.component';
 
-// Dashboard pages
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GroupComponent } from './groups/group.component';
 import { CreateGroupComponent } from './groups/create-group/create-group.component';
@@ -24,11 +24,13 @@ import { AccountComponent } from './account/account.component';
 
 // Guard
 import { AuthGuard } from './auth/auth.guard';
+import { PublicGuard } from './auth/public.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: PublicLayoutComponent,
+    canActivate: [PublicGuard],
     children: [
       { path: '', component: HomeComponent },
       { path: 'Home', component: HomeComponent },
