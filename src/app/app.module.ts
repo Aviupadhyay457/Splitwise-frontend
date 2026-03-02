@@ -32,6 +32,8 @@ import { CreateGroupComponent } from './groups/create-group/create-group.compone
 import { ActivityComponent } from './activity/activity.component';
 import { FriendsComponent } from './friends/friends.component';
 import { AccountComponent } from './account/account.component';
+import { GroupDetailsComponent } from './groups/group-details/group-details.component';
+import { EditGroupComponent } from './groups/edit-group/edit-group.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { AccountComponent } from './account/account.component';
     ActivityComponent,
     FriendsComponent,
     AccountComponent,
+    GroupDetailsComponent,
+    EditGroupComponent,
   ],
   imports: [
     BrowserModule,

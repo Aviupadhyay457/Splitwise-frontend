@@ -62,7 +62,9 @@
   gap: 20px;
   padding-right: 10px;
 }
-
+.group-data{
+  /* border:1px solid red; */
+}
 /* Custom Scrollbar */
 .group-grid::-webkit-scrollbar {
   width: 6px;
@@ -84,6 +86,9 @@
   border-top: 4px solid #9147ff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .group-card:hover {
@@ -116,4 +121,46 @@
   color: #999;
   font-size: 15px;
   margin-top: 20px;
+}
+
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.action-row {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  /* border: 1px solid red; */
+  justify-content: flex-end;
+}
+
+.icon-btn {
+  border: none;
+  background: #f4f4f4;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 14px;
+}
+
+.icon-btn i {
+  pointer-events: none;
+}
+
+.icon-btn.view:hover {
+  background-color: #9147ff;
+  color: white;
+}
+
+.icon-btn.edit:hover {
+  background-color: #7a34e6;
+  color: white;
+}
+
+.icon-btn.delete:hover {
+  background-color: #ff4d4d;
+  color: white;
 }

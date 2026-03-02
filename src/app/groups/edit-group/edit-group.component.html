@@ -1,0 +1,34 @@
+<div class="edit-container">
+
+  <div class="edit-card">
+    <h2>Edit Group</h2>
+
+    <form (ngSubmit)="updateGroup()">
+
+      <div class="form-group">
+        <label>Group Name</label>
+        <input
+          type="text"
+          [(ngModel)]="group.groupName"
+          name="groupName"
+          required />
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea
+          [(ngModel)]="group.description"
+          name="description">
+        </textarea>
+      </div>
+
+      <div class="button-row">
+        <button type="submit" class="update-btn">
+          Update Group
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</div>
