@@ -1,43 +1,69 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
-import { NavbarComponent } from './header/navbar/navbar.component';
-import { SignupComponent } from './signup/signup.component';
-import { LoginComponent } from './login/login.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { GroupComponent } from './group/group.component';
-import { CreateGroupComponent } from './create-group/create-group.component';
-import { VerifyEmailComponent } from './signup/verify-email/verify-email.component';
-import { CheckEmailComponent } from './signup/check-email/check-email.component';
+
+// Public layout shell
+import { PublicLayoutComponent } from './public/public-layout/public-layout.component';
+
+// Public components
+import { HomeComponent } from './public/home/home.component';
+import { HeaderComponent } from './public/header/header.component';
+import { NavbarComponent } from './public/header/navbar/navbar.component';
+import { LoginComponent } from './public/login/login.component';
+import { SignupComponent } from './public/signup/signup.component';
+import { CheckEmailComponent } from './public/signup/check-email/check-email.component';
+import { VerifyEmailComponent } from './public/signup/verify-email/verify-email.component';
+import { ForgotPasswordComponent } from './public/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './public/reset-password/reset-password.component';
+
+// Dashboard layout shell and parts
+import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-layout.component';
+import { DashboardHeaderComponent } from './layout/header/dashboard-header.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+
+// Dashboard pages
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { GroupComponent } from './groups/group.component';
+import { CreateGroupComponent } from './groups/create-group/create-group.component';
+import { ActivityComponent } from './activity/activity.component';
+import { FriendsComponent } from './friends/friends.component';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    // Public
+    PublicLayoutComponent,
     HomeComponent,
     HeaderComponent,
     NavbarComponent,
-    SignupComponent,
     LoginComponent,
+    SignupComponent,
+    CheckEmailComponent,
+    VerifyEmailComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    // Dashboard layout
+    DashboardLayoutComponent,
+    DashboardHeaderComponent,
+    SidebarComponent,
+    // Dashboard pages
+    DashboardComponent,
     GroupComponent,
     CreateGroupComponent,
-    VerifyEmailComponent,
-    CheckEmailComponent
-
+    ActivityComponent,
+    FriendsComponent,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
