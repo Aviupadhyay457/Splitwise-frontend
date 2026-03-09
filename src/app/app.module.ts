@@ -33,6 +33,7 @@ import { FriendsComponent } from './friends/friends.component';
 import { AccountComponent } from './account/account.component';
 import { GroupDetailsComponent } from './groups/group-details/group-details.component';
 import { EditGroupComponent } from './groups/edit-group/edit-group.component';
+import { GroupMembersComponent } from './groups/group-members/group-members.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { EditGroupComponent } from './groups/edit-group/edit-group.component';
     AccountComponent,
     GroupDetailsComponent,
     EditGroupComponent,
+    GroupMembersComponent,
   ],
   imports: [
     BrowserModule,

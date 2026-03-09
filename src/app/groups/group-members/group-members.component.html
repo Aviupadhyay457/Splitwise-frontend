@@ -1,0 +1,96 @@
+<div class="group-members-page">
+
+  <div class="header">
+
+    <h2>Group Members</h2>
+
+    <button
+      class="primary-btn"
+      (click)="showAddModal=true">
+
+      + Add Members
+
+    </button>
+
+  </div>
+
+  <!-- MEMBER LIST -->
+
+  <div class="member-list">
+
+    <div
+      class="member-card"
+      *ngFor="let m of members">
+
+      <div class="member-name">
+
+        Member ID : {{m.memberId}}
+
+      </div>
+
+      <button
+        class="remove-btn"
+        (click)="removeMember(m.memberId)">
+
+        Remove
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ADD MEMBER MODAL -->
+
+<div
+class="modal-backdrop"
+*ngIf="showAddModal">
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <h3>Add Members</h3>
+
+      <button
+      class="close-btn"
+      (click)="showAddModal=false">
+      ✕
+      </button>
+
+    </div>
+
+    <div class="friend-list">
+
+      <div
+      class="friend-item"
+      *ngFor="let f of friends">
+
+        <label>
+
+          <input
+          type="checkbox"
+          (change)="toggleMember(f.friendUserId)">
+
+          {{f.firstName}} {{f.lastName}}
+
+        </label>
+
+      </div>
+
+    </div>
+
+    <button
+      class="primary-btn full-btn"
+      (click)="addMembers()">
+
+      Add Selected Members
+
+    </button>
+
+  </div>
+
+</div>

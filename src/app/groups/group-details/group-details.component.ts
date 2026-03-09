@@ -9,44 +9,56 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class GroupDetailsComponent implements OnInit {
 
-  group: any;
-  private readonly apiUrl = 'https://localhost:7032/api/groups';
+  group:any;
+  members:any[]=[];
+
+  private readonly apiUrl="https://localhost:7032/api/groups";
 
   constructor(
-    private route: ActivatedRoute,
-    private http: HttpClient,
-    private router: Router
-  ) {}
+    private route:ActivatedRoute,
+    private http:HttpClient,
+    private router:Router
+  ){}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    const id=Number(this.route.snapshot.paramMap.get('id'));
+
     this.loadGroup(id);
+    this.loadMembers(id);
+
   }
 
-  loadGroup(id: number): void {
+  headers(){
+    const token=localStorage.getItem('token') ?? '';
 
-    const token = localStorage.getItem('token') ?? '';
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
+    return new HttpHeaders({
+      Authorization:`Bearer ${token}`
+    });
+  }
+
+  loadGroup(id:number){
+
+    this.http.get<any>(`${this.apiUrl}/${id}`,
+    {headers:this.headers()})
+    .subscribe(res=>{
+      this.group=res.data;
     });
 
-    this.http.get<any>(`${this.apiUrl}/${id}`, { headers })
-      .subscribe({
-        next: (res) => {
-          if (res.success && res.data) {
-            this.group = res.data;   // ✅ CORRECT
-          } else {
-            alert(res.message);
-          }
-        },
-        error: (err) => {
-          console.error(err);
-          alert('Failed to load group');
-        }
-      });
   }
 
-  back(): void {
+  loadMembers(id:number){
+
+    this.http.get<any>(`${this.apiUrl}/${id}/members`,
+    {headers:this.headers()})
+    .subscribe(res=>{
+      this.members=res.data;
+    });
+
+  }
+
+  back(){
     this.router.navigate(['/dashboard/groups']);
   }
+
 }
