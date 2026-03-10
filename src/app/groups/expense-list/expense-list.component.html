@@ -1,0 +1,103 @@
+<div class="skeleton-container" *ngIf="loading">
+  <div class="skeleton-banner"></div>
+  <div class="skeleton-card"></div>
+  <div class="skeleton-card"></div>
+  <div class="skeleton-card"></div>
+</div>
+
+<div class="expenses-section" *ngIf="!loading">
+
+  <h3 class="section-title">Expenses</h3>
+
+  <div class="empty-expenses" *ngIf="expenses.length === 0">
+    No expenses recorded yet.
+  </div>
+
+  <div
+    class="expense-card"
+    *ngFor="let expense of expenses"
+    [class.positive]="getExpenseBalance(expense) > 0"
+    [class.negative]="getExpenseBalance(expense) < 0"
+    [class.neutral]="getExpenseBalance(expense) === 0"
+    (click)="toggleExpense(expense.id)"
+  >
+
+    <div class="expense-summary">
+
+      <div class="expense-main">
+        <span class="expense-desc">{{ expense.description }}</span>
+        <span class="expense-paid-by">
+          Paid by {{ getMemberName(expense.paidByGroupMemberId) }}
+        </span>
+      </div>
+
+      <div class="expense-right">
+        <div class="expense-top-row">
+          <span class="expense-amount">&#8377;{{ expense.totalAmount | number:'1.2-2' }}</span>
+          <span class="expense-date">{{ formatDate(expense.expenseDate) }}</span>
+          <i class="fas chevron"
+             [class.fa-chevron-down]="expandedExpenseId !== expense.id"
+             [class.fa-chevron-up]="expandedExpenseId === expense.id"></i>
+        </div>
+        <span class="expense-balance owed" *ngIf="getExpenseBalance(expense) > 0">
+          You lent &#8377;{{ getExpenseBalance(expense) | number:'1.2-2' }}
+        </span>
+        <span class="expense-balance owe" *ngIf="getExpenseBalance(expense) < 0">
+          You owe &#8377;{{ -getExpenseBalance(expense) | number:'1.2-2' }}
+        </span>
+        <span class="expense-balance settled" *ngIf="getExpenseBalance(expense) === 0">
+          Settled
+        </span>
+      </div>
+
+    </div>
+
+    <div class="expense-expanded" *ngIf="expandedExpenseId === expense.id" (click)="$event.stopPropagation()">
+      <p class="split-title">Split Details</p>
+      <div class="split-row" *ngFor="let share of expense.shares">
+        <span class="split-name">{{ getMemberName(share.groupMemberId) }}</span>
+        <span class="split-amount">&#8377;{{ share.amount | number:'1.2-2' }}</span>
+      </div>
+      <div class="expanded-footer">
+        <div class="created-info">
+          <i class="fas fa-info-circle"></i>
+          Created: {{ formatCreatedAt(expense.createdAt) }}
+        </div>
+
+        <div class="action-btns" *ngIf="confirmingDeleteId !== expense.id">
+          <button class="edit-btn" (click)="openEdit(expense, $event)">
+            <i class="fas fa-pencil-alt"></i> Edit
+          </button>
+          <button
+            class="delete-btn"
+            [disabled]="deletingExpenseId === expense.id"
+            (click)="requestDelete(expense.id, $event)">
+            <i class="fas fa-trash-alt"></i> Delete
+          </button>
+        </div>
+
+        <div class="delete-confirm" *ngIf="confirmingDeleteId === expense.id">
+          <span class="confirm-text">Delete this expense?</span>
+          <button class="btn-confirm-cancel" (click)="cancelDelete($event)">Cancel</button>
+          <button
+            class="btn-confirm-delete"
+            [disabled]="deletingExpenseId === expense.id"
+            (click)="confirmDelete(expense.id, $event)">
+            {{ deletingExpenseId === expense.id ? 'Deleting...' : 'Yes, Delete' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<app-edit-expense
+  *ngIf="editingExpense"
+  [expense]="editingExpense"
+  [groupId]="groupId"
+  [members]="members"
+  (expenseUpdated)="onExpenseUpdated()"
+  (close)="editingExpense = null">
+</app-edit-expense>
