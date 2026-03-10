@@ -1,1 +1,79 @@
-<p>This is friends.</p>
+<div class="friend-page">
+
+  <div class="page-header">
+    <h2>Friends</h2>
+
+    <button class="primary-btn"
+    (click)="openAddFriend()">
+      + Add Friend
+    </button>
+  </div>
+
+  <!-- FRIEND LIST -->
+
+  <div class="friend-list">
+
+    <div class="friend-card"
+    *ngFor="let f of friends">
+
+      <div class="friend-name">
+        {{f.firstName}} {{f.lastName}}
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ADD FRIEND MODAL -->
+
+<div class="modal-backdrop"
+*ngIf="showAddModal">
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <h3>Add Friends</h3>
+
+      <button
+      class="close-btn"
+      (click)="showAddModal=false">
+      ✕
+      </button>
+
+    </div>
+
+    <div class="user-list">
+
+      <div
+      class="user-item"
+      *ngFor="let u of nonFriends">
+
+        <label>
+
+          <input
+          type="checkbox"
+          (change)="toggleUser(u.id)">
+
+          {{u.firstName}} {{u.lastName}}
+
+        </label>
+
+      </div>
+
+    </div>
+
+    <button
+    class="primary-btn add-btn"
+    (click)="addFriends()">
+
+      Add Selected Friends
+
+    </button>
+
+  </div>
+
+</div>

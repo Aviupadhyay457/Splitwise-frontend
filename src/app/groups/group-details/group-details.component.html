@@ -1,23 +1,39 @@
 <div *ngIf="group" class="details-container">
 
   <div class="details-card">
-    <h2>{{ group.groupName }}</h2>
+
+    <h2>{{group.groupName}}</h2>
 
     <div class="detail-row">
       <span class="label">Description</span>
       <span class="value">
-        {{ group.description || 'No description available' }}
+        {{group.description || 'No description available'}}
       </span>
     </div>
 
-    <!-- <div class="detail-row">
-      <span class="label">Created By</span>
-      <span class="value">{{ group.createdByUserId }}</span>
-    </div> -->
+    <h3 class="member-title">Members</h3>
+
+    <div class="member-card"
+    *ngFor="let m of members">
+
+      {{m.firstName}} {{m.lastName}}
+
+      <span
+      *ngIf="m.isAdmin"
+      class="admin-badge">
+      Admin
+      </span>
+
+    </div>
 
     <div class="button-row">
-      <button class="back-btn" (click)="back()">Back</button>
+      <button
+      class="back-btn"
+      (click)="back()">
+      Back
+      </button>
     </div>
+
   </div>
 
 </div>

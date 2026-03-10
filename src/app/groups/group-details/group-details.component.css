@@ -1,55 +1,67 @@
-.details-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
+.details-container{
+display:flex;
+justify-content:center;
+margin-top:50px;
 }
 
-.details-card {
-  width: 500px;
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 30px;
-  border-top: 4px solid #9147ff;
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+.details-card{
+width:500px;
+background:#fff;
+border-radius:14px;
+padding:30px;
+border-top:4px solid #9147ff;
+box-shadow:0 6px 25px rgba(0,0,0,0.08);
 }
 
-.details-card h2 {
-  margin-bottom: 25px;
-  color: #9147ff;
+.details-card h2{
+color:#9147ff;
+margin-bottom:25px;
 }
 
-.detail-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 18px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+.detail-row{
+display:flex;
+justify-content:space-between;
+margin-bottom:18px;
+padding-bottom:10px;
+border-bottom:1px solid #eee;
 }
 
-.label {
-  font-weight: 600;
-  color: #333;
+.member-title{
+margin-top:20px;
+margin-bottom:10px;
 }
 
-.value {
-  color: #666;
+.member-card{
+background:#f8f8f8;
+padding:10px;
+border-radius:8px;
+margin-bottom:8px;
+display:flex;
+justify-content:space-between;
 }
 
-.button-row {
-  text-align: right;
-  margin-top: 20px;
+.admin-badge{
+background:#9147ff;
+color:white;
+font-size:12px;
+padding:2px 8px;
+border-radius:5px;
 }
 
-.back-btn {
-  padding: 8px 16px;
-  background-color: #9147ff;
-  border: none;
-  border-radius: 6px;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
+.button-row{
+text-align:right;
+margin-top:20px;
 }
 
-.back-btn:hover {
-  background-color: #7a34e6;
+.back-btn{
+padding:8px 16px;
+background:#9147ff;
+border:none;
+border-radius:6px;
+color:white;
+cursor:pointer;
+}
+
+.back-btn:hover{
+background:#7a34e6;
 }
