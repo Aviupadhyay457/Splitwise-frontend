@@ -1,21 +1,26 @@
 <div class="edit-container">
 
   <div class="edit-card">
+
     <h2>Edit Group</h2>
 
+    <!-- EDIT GROUP FORM -->
     <form (ngSubmit)="updateGroup()">
 
       <div class="form-group">
         <label>Group Name</label>
+
         <input
           type="text"
           [(ngModel)]="group.groupName"
           name="groupName"
-          required />
+          required
+        />
       </div>
 
       <div class="form-group">
         <label>Description</label>
+
         <textarea
           [(ngModel)]="group.description"
           name="description">
@@ -23,12 +28,125 @@
       </div>
 
       <div class="button-row">
-        <button type="submit" class="update-btn">
+        <button
+          type="submit"
+          class="update-btn">
+
           Update Group
+
         </button>
       </div>
 
     </form>
+
+
+    <!-- MEMBERS SECTION -->
+
+    <div class="members-section">
+
+      <div class="members-header">
+
+        <h3>Members</h3>
+
+        <button
+          type="button"
+          class="add-member-btn"
+          (click)="openAddMembers()">
+
+          + Add Members
+
+        </button>
+
+      </div>
+
+
+      <!-- MEMBER LIST -->
+
+      <div
+        class="member-row"
+        *ngFor="let member of members">
+
+        <span class="member-name">
+          {{member.firstName}} {{member.lastName}}
+        </span>
+
+        <span
+          *ngIf="member.isAdmin"
+          class="role-badge">
+          Admin
+        </span>
+
+        <button
+  type="button"
+  class="remove-btn"
+  (click)="removeMember(member.memberId); $event.stopPropagation()">
+  Remove
+</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ADD MEMBERS MODAL -->
+
+<div class="modal-overlay" *ngIf="showAddModal">
+
+  <div class="modal-box">
+
+    <h3>Add Members</h3>
+
+    <div class="friend-list">
+
+      <div
+        class="friend-item"
+        *ngFor="let user of users">
+
+        <label>
+
+          <input
+            type="checkbox"
+            (change)="toggleSelect(user.memberId)"
+          />
+
+          {{user.firstName}} {{user.lastName}}
+
+        </label>
+
+      </div>
+
+      <p *ngIf="users.length === 0">
+        No users available to add
+      </p>
+
+    </div>
+
+    <div class="modal-actions">
+
+      <button
+        type="button"
+        class="cancel-btn"
+        (click)="showAddModal=false">
+
+        Cancel
+
+      </button>
+
+      <button
+        type="button"
+        class="add-btn"
+        (click)="addMembers()">
+
+        Add Members
+
+      </button>
+
+    </div>
+
   </div>
 
 </div>
