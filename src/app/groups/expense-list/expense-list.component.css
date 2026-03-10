@@ -1,0 +1,273 @@
+@keyframes shimmer {
+  0% { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+.skeleton-banner,
+.skeleton-card {
+  border-radius: 12px;
+  background: linear-gradient(90deg, #ececec 25%, #f5f5f5 50%, #ececec 75%);
+  background-size: 1200px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+.skeleton-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.skeleton-banner {
+  height: 72px;
+}
+
+.skeleton-card {
+  height: 72px;
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #aaa;
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+}
+
+.empty-expenses {
+  text-align: center;
+  color: #bbb;
+  font-size: 15px;
+  padding: 40px 0;
+}
+
+.expense-card {
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+  overflow: hidden;
+}
+
+.expense-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.expense-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+}
+
+.expense-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.expense-desc {
+  font-weight: 600;
+  font-size: 15px;
+  color: #1a1a2e;
+}
+
+.expense-paid-by {
+  font-size: 13px;
+  color: #888;
+}
+
+.expense-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.expense-top-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.expense-amount {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.expense-date {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.chevron {
+  font-size: 11px;
+  color: #ccc;
+}
+
+.expense-balance {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.expense-balance.owed {
+  color: #2ecc71;
+}
+
+.expense-balance.owe {
+  color: #e74c3c;
+}
+
+.expense-balance.settled {
+  color: #aaa;
+}
+
+.expense-expanded {
+  padding: 0 20px 16px 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.split-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #aaa;
+  text-transform: uppercase;
+  margin: 14px 0 10px 0;
+}
+
+.split-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 14px;
+  color: #555;
+  border-bottom: 1px solid #f8f8f8;
+}
+
+.split-name {
+  color: #444;
+}
+
+.split-amount {
+  font-weight: 500;
+  color: #333;
+  font-variant-numeric: tabular-nums;
+}
+
+.expanded-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.created-info {
+  font-size: 12px;
+  color: #bbb;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.action-btns {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.edit-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  color: #3498db;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: transform 0.15s;
+  font-family: inherit;
+}
+
+.edit-btn:hover {
+  transform: scale(1.08);
+}
+
+.delete-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: transform 0.15s;
+  font-family: inherit;
+}
+
+.delete-btn:hover:not(:disabled) {
+  transform: scale(1.08);
+}
+
+.delete-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.delete-confirm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.confirm-text {
+  font-size: 12px;
+  color: #888;
+}
+
+.btn-confirm-cancel {
+  padding: 4px 10px;
+  border: 1.5px solid #e0e0e0;
+  background: #fff;
+  color: #666;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.btn-confirm-cancel:hover {
+  border-color: #bbb;
+}
+
+.btn-confirm-delete {
+  padding: 4px 10px;
+  border: none;
+  background: #e74c3c;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.btn-confirm-delete:hover:not(:disabled) {
+  background: #c0392b;
+}
+
+.btn-confirm-delete:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

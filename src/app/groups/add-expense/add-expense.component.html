@@ -1,0 +1,123 @@
+<div class="modal-backdrop" (click)="onBackdropClick($event)">
+  <div class="modal-box">
+
+    <div class="modal-header">
+      <h3 class="modal-title">Add Expense</h3>
+      <button class="modal-close" type="button" (click)="close.emit()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-section">
+        <div class="form-field">
+          <label class="field-label">Description</label>
+          <input
+            class="field-input"
+            type="text"
+            [(ngModel)]="description"
+            placeholder="What was this expense for?">
+        </div>
+        <div class="form-row-two">
+          <div class="form-field">
+            <label class="field-label">Total Amount</label>
+            <div class="amount-wrapper">
+              <span class="currency-symbol">&#8377;</span>
+              <input
+                class="field-input amount-input"
+                type="number"
+                [(ngModel)]="totalAmount"
+                min="0.01"
+                step="0.01"
+                placeholder="0.00">
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="field-label">Date</label>
+            <input
+              class="field-input"
+              type="date"
+              [(ngModel)]="expenseDate">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-label">Paid By</div>
+        <div class="payer-options">
+          <div
+            class="payer-chip"
+            *ngFor="let m of members"
+            [class.selected]="paidByGroupMemberId === m.id"
+            (click)="onPayerChange(m.id)">
+            <i class="fas"
+               [class.fa-check-circle]="paidByGroupMemberId === m.id"
+               [class.fa-circle]="paidByGroupMemberId !== m.id"></i>
+            {{ m.firstName }} {{ m.lastName }}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-label">Split</div>
+        <div class="split-toggle">
+          <button type="button" class="toggle-btn" [class.active]="splitType === 'equal'" (click)="splitType = 'equal'">Equally</button>
+          <button type="button" class="toggle-btn" [class.active]="splitType === 'amount'" (click)="splitType = 'amount'">By Amount</button>
+          <button type="button" class="toggle-btn" [class.active]="splitType === 'percent'" (click)="splitType = 'percent'">By %</button>
+        </div>
+        <div class="split-member-list">
+          <div class="split-member-row" *ngFor="let split of memberSplits">
+            <input type="checkbox" class="member-checkbox" [checked]="split.included" (change)="split.included = !split.included">
+            <span class="member-name">{{ split.firstName }} {{ split.lastName }}</span>
+            <ng-container *ngIf="splitType === 'equal'">
+              <span class="equal-amount" *ngIf="split.included">&#8377;{{ getEqualAmountDisplay() | number:'1.2-2' }}</span>
+              <span class="excluded-dash" *ngIf="!split.included">—</span>
+            </ng-container>
+            <ng-container *ngIf="splitType === 'amount'">
+              <div class="amount-wrapper small" *ngIf="split.included">
+                <span class="currency-symbol small">&#8377;</span>
+                <input class="split-input" type="number" [name]="'amount-' + split.id" [(ngModel)]="split.amount" min="0" step="0.01" placeholder="0.00">
+              </div>
+              <span class="excluded-dash" *ngIf="!split.included">—</span>
+            </ng-container>
+            <ng-container *ngIf="splitType === 'percent'">
+              <div class="percent-row" *ngIf="split.included">
+                <input class="split-input small" type="number" [name]="'percent-' + split.id" [(ngModel)]="split.percent" min="0" max="100" placeholder="0">
+                <span class="percent-symbol">%</span>
+                <span class="computed-amount">= &#8377;{{ getAmountFromPercent(split.percent) | number:'1.2-2' }}</span>
+              </div>
+              <span class="excluded-dash" *ngIf="!split.included">—</span>
+            </ng-container>
+          </div>
+          <div class="split-hint" *ngIf="splitType === 'amount'">
+            <span [class.hint-ok]="isAmountSumValid()" [class.hint-error]="!isAmountSumValid()">
+              <i class="fas" [class.fa-check]="isAmountSumValid()" [class.fa-exclamation-circle]="!isAmountSumValid()"></i>
+              &#8377;{{ getSplitAmountSum() | number:'1.2-2' }} of &#8377;{{ (totalAmount ?? 0) | number:'1.2-2' }}
+            </span>
+          </div>
+          <div class="split-hint" *ngIf="splitType === 'percent'">
+            <span [class.hint-ok]="isPercentSumValid()" [class.hint-error]="!isPercentSumValid()">
+              <i class="fas" [class.fa-check]="isPercentSumValid()" [class.fa-exclamation-circle]="!isPercentSumValid()"></i>
+              {{ getPercentSum() | number:'1.2-2' }}% of 100%
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <div class="error-msg" *ngIf="errorMessage">
+        <i class="fas fa-exclamation-triangle"></i> {{ errorMessage }}
+      </div>
+      <div class="footer-btns">
+        <button class="btn-cancel" type="button" (click)="close.emit()" [disabled]="submitting">Cancel</button>
+        <button class="btn-save" type="button" (click)="onSubmit()" [disabled]="submitting">
+          {{ submitting ? 'Saving...' : 'Save Expense' }}
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
