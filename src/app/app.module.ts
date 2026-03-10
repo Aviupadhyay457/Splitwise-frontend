@@ -6,8 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { PublicLayoutComponent } from './public/public-layout/public-layout.component';
 
+import { PublicLayoutComponent } from './public/public-layout/public-layout.component';
 
 import { HomeComponent } from './public/home/home.component';
 import { HeaderComponent } from './public/header/header.component';
@@ -19,21 +19,22 @@ import { VerifyEmailComponent } from './public/signup/verify-email/verify-email.
 import { ForgotPasswordComponent } from './public/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './public/reset-password/reset-password.component';
 
-
 import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-layout.component';
 import { DashboardHeaderComponent } from './layout/header/dashboard-header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 
-
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GroupComponent } from './groups/group.component';
 import { CreateGroupComponent } from './groups/create-group/create-group.component';
+import { EditGroupComponent } from './groups/edit-group/edit-group.component';
+import { GroupDetailsComponent } from './groups/group-details/group-details.component';
+import { GroupMembersComponent } from './groups/group-members/group-members.component';
+import { ExpenseListComponent } from './groups/expense-list/expense-list.component';
+import { AddExpenseComponent } from './groups/add-expense/add-expense.component';
+import { EditExpenseComponent } from './groups/edit-expense/edit-expense.component';
 import { ActivityComponent } from './activity/activity.component';
 import { FriendsComponent } from './friends/friends.component';
 import { AccountComponent } from './account/account.component';
-import { GroupDetailsComponent } from './groups/group-details/group-details.component';
-import { EditGroupComponent } from './groups/edit-group/edit-group.component';
-import { GroupMembersComponent } from './groups/group-members/group-members.component';
 
 @NgModule({
   declarations: [
@@ -54,12 +55,15 @@ import { GroupMembersComponent } from './groups/group-members/group-members.comp
     DashboardComponent,
     GroupComponent,
     CreateGroupComponent,
+    EditGroupComponent,
+    GroupDetailsComponent,
+    GroupMembersComponent,
+    ExpenseListComponent,
+    AddExpenseComponent,
+    EditExpenseComponent,
     ActivityComponent,
     FriendsComponent,
     AccountComponent,
-    GroupDetailsComponent,
-    EditGroupComponent,
-    GroupMembersComponent,
   ],
   imports: [
     BrowserModule,

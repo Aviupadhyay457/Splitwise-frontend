@@ -1,39 +1,81 @@
-<div *ngIf="group" class="details-container">
+<div class="details-page">
 
-  <div class="details-card">
+  <div class="page-header">
 
-    <h2>{{group.groupName}}</h2>
+    <button class="back-btn" (click)="back()">
+      <i class="fas fa-arrow-left"></i> Back
+    </button>
 
-    <div class="detail-row">
-      <span class="label">Description</span>
-      <span class="value">
-        {{group.description || 'No description available'}}
-      </span>
-    </div>
-
-    <h3 class="member-title">Members</h3>
-
-    <div class="member-card"
-    *ngFor="let m of members">
-
-      {{m.firstName}} {{m.lastName}}
-
-      <span
-      *ngIf="m.isAdmin"
-      class="admin-badge">
-      Admin
-      </span>
-
-    </div>
-
-    <div class="button-row">
-      <button
-      class="back-btn"
-      (click)="back()">
-      Back
+    <div class="group-title-row" *ngIf="group">
+      <h1 class="group-name">{{ group.groupName }}</h1>
+      <button class="add-expense-btn" (click)="showAddExpenseModal = true">
+        <i class="fas fa-plus"></i> Add Expense
       </button>
+    </div>
+
+    <p class="group-desc" *ngIf="group">{{ group.description || 'No description available' }}</p>
+
+    <div class="members-section" *ngIf="members.length > 0">
+
+      <button class="members-toggle" (click)="toggleMembers()">
+        <i class="fas fa-users"></i>
+        Members ({{ members.length }})
+        <i class="fas toggle-chevron"
+           [class.fa-chevron-down]="!showMembers"
+           [class.fa-chevron-up]="showMembers"></i>
+      </button>
+
+      <div class="members-strip" *ngIf="showMembers">
+        <div class="member-pill"
+             *ngFor="let m of members"
+             [class.pill-you-admin]="m.memberId === currentUserId && m.isAdmin"
+             [class.pill-you]="m.memberId === currentUserId && !m.isAdmin"
+             [class.pill-admin]="m.memberId !== currentUserId && m.isAdmin"
+             [class.pill-member]="m.memberId !== currentUserId && !m.isAdmin">
+          <i class="fas fa-user-circle member-icon"
+             [class.icon-you-admin]="m.memberId === currentUserId && m.isAdmin"
+             [class.icon-you]="m.memberId === currentUserId && !m.isAdmin"
+             [class.icon-admin]="m.memberId !== currentUserId && m.isAdmin"
+             [class.icon-member]="m.memberId !== currentUserId && !m.isAdmin">
+          </i>
+          <span class="pill-name">{{ m.firstName }} {{ m.lastName }}</span>
+          <span class="pill-you-label" *ngIf="m.memberId === currentUserId">(You)</span>
+          <i class="fas fa-crown pill-crown" *ngIf="m.isAdmin"></i>
+        </div>
+      </div>
+
     </div>
 
   </div>
 
+  <div class="balance-banner" *ngIf="!loadingExpenses">
+    <p class="balance-amount owed" *ngIf="totalBalance > 0">
+      You are owed &#8377;{{ totalBalance | number:'1.2-2' }}
+    </p>
+    <p class="balance-amount owe" *ngIf="totalBalance < 0">
+      You owe &#8377;{{ -totalBalance | number:'1.2-2' }}
+    </p>
+    <p class="balance-amount settled" *ngIf="totalBalance === 0">
+      You are settled up
+    </p>
+  </div>
+
+  <app-expense-list
+    [expenses]="expenses"
+    [members]="members"
+    [currentUserId]="currentUserId"
+    [loading]="loadingExpenses"
+    [groupId]="groupId"
+    (expenseDeleted)="onExpenseAdded()"
+    (expenseUpdated)="onExpenseAdded()">
+  </app-expense-list>
+
 </div>
+
+<app-add-expense
+  *ngIf="showAddExpenseModal"
+  [groupId]="groupId"
+  [members]="members"
+  (expenseAdded)="onExpenseAdded()"
+  (close)="showAddExpenseModal = false">
+</app-add-expense>
