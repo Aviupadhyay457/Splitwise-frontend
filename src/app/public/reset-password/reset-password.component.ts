@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Md5 } from 'ts-md5';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 interface ResetPasswordResponse {
   statusCode: number;
@@ -57,7 +58,7 @@ export class ResetPasswordComponent implements OnInit {
     const newPassword = btoa(`"hashedPassword":"${hashed}"`);
     const body = { token: this.token, newPassword };
 
-    this.http.put<ResetPasswordResponse>('https://localhost:7032/api/password-resets', body)
+    this.http.put<ResetPasswordResponse>(`${environment.apiBaseUrl}/password-resets`, body)
       .subscribe({
         next: (res) => {
           this.isLoading = false;

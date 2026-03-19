@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import {Md5} from 'ts-md5';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -46,12 +47,13 @@ export class LoginComponent implements OnInit {
         "password":this.credentialsString
       }
       console.log(jsonInput)
-      this.http.post('https://localhost:7032/api/login', jsonInput)
+      this.http.post(`${environment.apiBaseUrl}/login`, jsonInput)
       .subscribe({
         next: (res: any) => {
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('userEmail', form.value.email);
           localStorage.setItem('userId', String(res.data.id));
+          localStorage.setItem('userName', `${res.data.firstName} ${res.data.lastName}`);
           this.router.navigate(['/dashboard']);
         },
         error: (err) => {

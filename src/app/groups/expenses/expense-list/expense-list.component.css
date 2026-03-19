@@ -26,13 +26,49 @@
   height: 72px;
 }
 
+.expenses-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
 .section-title {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 1px;
   color: #aaa;
-  margin: 0 0 16px 0;
+  margin: 0;
   text-transform: uppercase;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.filter-tab {
+  background: none;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: #888;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.filter-tab:hover {
+  border-color: #9147ff;
+  color: #9147ff;
+}
+
+.filter-tab.active {
+  background: #9147ff;
+  border-color: #9147ff;
+  color: white;
+  font-weight: 500;
 }
 
 .empty-expenses {
@@ -126,6 +162,11 @@
   color: #aaa;
 }
 
+.expense-balance.not-involved {
+  color: #ccc;
+  font-style: italic;
+}
+
 .expense-expanded {
   padding: 0 20px 16px 20px;
   border-top: 1px solid #f0f0f0;
@@ -159,6 +200,13 @@
   font-variant-numeric: tabular-nums;
 }
 
+.split-paid-label {
+  font-size: 12px;
+  font-weight: 400;
+  color: #7c3aed;
+  margin-left: 6px;
+}
+
 .expanded-footer {
   display: flex;
   align-items: center;
@@ -178,6 +226,25 @@
   display: flex;
   align-items: center;
   gap: 4px;
+}
+
+.settlements-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  color: #9147ff;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: transform 0.15s;
+  font-family: inherit;
+}
+
+.settlements-btn:hover {
+  transform: scale(1.08);
 }
 
 .edit-btn {
