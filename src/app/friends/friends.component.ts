@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-friends',
@@ -14,7 +15,7 @@ export class FriendsComponent implements OnInit {
   showAddModal = false;
   selectedUsers:number[] = [];
 
-  baseUrl = "https://localhost:7032/api/friendships";
+  baseUrl = `${environment.apiBaseUrl}/friendships`;
 
   constructor(private http:HttpClient) {}
 

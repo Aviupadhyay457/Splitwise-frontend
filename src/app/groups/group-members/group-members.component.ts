@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-group-members',
@@ -17,7 +18,7 @@ export class GroupMembersComponent implements OnInit {
   showAddModal = false;
   selectedMembers:number[] = [];
 
-  baseUrl="https://localhost:7032/api";
+  baseUrl = environment.apiBaseUrl;
 
   constructor(
     private route:ActivatedRoute,

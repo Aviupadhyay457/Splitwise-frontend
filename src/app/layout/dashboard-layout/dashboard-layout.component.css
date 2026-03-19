@@ -1,13 +1,6 @@
 .dashboard-shell {
   display: flex;
-  flex-direction: column;
   height: 100vh;
-  overflow: hidden;
-}
-
-.dashboard-body {
-  display: flex;
-  flex: 1;
   overflow: hidden;
 }
 

@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-expense-list',
@@ -13,15 +14,18 @@ export class ExpenseListComponent {
   @Input() currentUserId: number = 0;
   @Input() loading: boolean = true;
   @Input() groupId: number = 0;
+  @Input() groupSettlements: any[] = [];
   @Output() expenseDeleted = new EventEmitter<void>();
   @Output() expenseUpdated = new EventEmitter<void>();
+  @Output() viewSettlements = new EventEmitter<{ expenseId: number }>();
 
   expandedExpenseId: number | null = null;
   confirmingDeleteId: number | null = null;
   deletingExpenseId: number | null = null;
   editingExpense: any | null = null;
+  activeFilter: 'all' | 'pending' | 'settled' | 'others' = 'all';
 
-  private readonly apiUrl = 'https://localhost:7032/api/groups';
+  private readonly apiUrl = `${environment.apiBaseUrl}/groups`;
 
   constructor(private http: HttpClient) {}
 
@@ -33,11 +37,57 @@ export class ExpenseListComponent {
   getExpenseBalance(expense: any): number {
     const myMember = this.members.find(m => m.memberId === this.currentUserId);
     const myGroupMemberId = myMember?.id ?? -1;
-    const myShare = expense.shares
-      .find((s: any) => s.groupMemberId === myGroupMemberId)?.amount ?? 0;
-    return expense.paidByGroupMemberId === myGroupMemberId
-      ? expense.totalAmount - myShare
-      : -myShare;
+    const myShare = expense.shares.find((s: any) => s.groupMemberId === myGroupMemberId);
+    const myShareAmount = myShare?.amount ?? 0;
+    if (expense.paidByGroupMemberId === myGroupMemberId) {
+      const totalReceived = expense.shares
+        .filter((s: any) => s.groupMemberId !== myGroupMemberId)
+        .reduce((total: number, share: any) => {
+          return total + this.groupSettlements
+            .filter((gs: any) => gs.expenseShareId === share.id)
+            .reduce((acc: number, gs: any) => acc + gs.amount, 0);
+        }, 0);
+      return expense.totalAmount - myShareAmount - totalReceived;
+    }
+    const settledForShare = myShare
+      ? this.groupSettlements
+          .filter((s: any) => s.expenseShareId === myShare.id)
+          .reduce((acc: number, s: any) => acc + s.amount, 0)
+      : 0;
+    return -(myShareAmount - settledForShare);
+  }
+
+  isInvolved(expense: any): boolean {
+    const myMember = this.members.find(m => m.memberId === this.currentUserId);
+    const myGroupMemberId = myMember?.id ?? -1;
+    const myShare = expense.shares.find((s: any) => s.groupMemberId === myGroupMemberId);
+    return !!myShare || expense.paidByGroupMemberId === myGroupMemberId;
+  }
+
+  setFilter(filter: 'all' | 'pending' | 'settled' | 'others'): void {
+    this.activeFilter = filter;
+    this.expandedExpenseId = null;
+  }
+
+  filteredExpenses(): any[] {
+    const sorted = [...this.expenses].sort((a, b) =>
+      new Date(b.expenseDate).getTime() - new Date(a.expenseDate).getTime()
+    );
+    if (this.activeFilter === 'all') return sorted;
+    return sorted.filter(expense => {
+      const balance = this.getExpenseBalance(expense);
+      const involved = this.isInvolved(expense);
+      if (this.activeFilter === 'pending') return involved && balance !== 0;
+      if (this.activeFilter === 'settled') return involved && balance === 0;
+      if (this.activeFilter === 'others') return !involved;
+      return true;
+    });
+  }
+
+  getShareSettledAmount(shareId: number): number {
+    return this.groupSettlements
+      .filter((s: any) => s.expenseShareId === shareId)
+      .reduce((acc: number, s: any) => acc + s.amount, 0);
   }
 
   getMemberName(groupMemberId: number): string {
@@ -96,7 +146,7 @@ export class ExpenseListComponent {
 
   formatDate(dateStr: string): string {
     const d = new Date(dateStr);
-    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
   }
 
   formatCreatedAt(isoStr: string): string {

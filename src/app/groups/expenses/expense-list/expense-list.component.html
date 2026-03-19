@@ -7,18 +7,26 @@
 
 <div class="expenses-section" *ngIf="!loading">
 
-  <h3 class="section-title">Expenses</h3>
+  <div class="expenses-header">
+    <h3 class="section-title">Expenses</h3>
+    <div class="filter-tabs">
+      <button class="filter-tab" [class.active]="activeFilter === 'all'" (click)="setFilter('all')">All</button>
+      <button class="filter-tab" [class.active]="activeFilter === 'pending'" (click)="setFilter('pending')">Pending</button>
+      <button class="filter-tab" [class.active]="activeFilter === 'settled'" (click)="setFilter('settled')">Settled</button>
+      <button class="filter-tab" [class.active]="activeFilter === 'others'" (click)="setFilter('others')">Others</button>
+    </div>
+  </div>
 
-  <div class="empty-expenses" *ngIf="expenses.length === 0">
-    No expenses recorded yet.
+  <div class="empty-expenses" *ngIf="filteredExpenses().length === 0">
+    No expenses here.
   </div>
 
   <div
     class="expense-card"
-    *ngFor="let expense of expenses"
+    *ngFor="let expense of filteredExpenses()"
     [class.positive]="getExpenseBalance(expense) > 0"
     [class.negative]="getExpenseBalance(expense) < 0"
-    [class.neutral]="getExpenseBalance(expense) === 0"
+    [class.neutral]="getExpenseBalance(expense) === 0 && isInvolved(expense)"
     (click)="toggleExpense(expense.id)"
   >
 
@@ -45,8 +53,11 @@
         <span class="expense-balance owe" *ngIf="getExpenseBalance(expense) < 0">
           You owe &#8377;{{ -getExpenseBalance(expense) | number:'1.2-2' }}
         </span>
-        <span class="expense-balance settled" *ngIf="getExpenseBalance(expense) === 0">
+        <span class="expense-balance settled" *ngIf="getExpenseBalance(expense) === 0 && isInvolved(expense)">
           Settled
+        </span>
+        <span class="expense-balance not-involved" *ngIf="!isInvolved(expense)">
+          Not in split
         </span>
       </div>
 
@@ -56,7 +67,12 @@
       <p class="split-title">Split Details</p>
       <div class="split-row" *ngFor="let share of expense.shares">
         <span class="split-name">{{ getMemberName(share.groupMemberId) }}</span>
-        <span class="split-amount">&#8377;{{ share.amount | number:'1.2-2' }}</span>
+        <span class="split-amount">
+          &#8377;{{ share.amount | number:'1.2-2' }}
+          <span class="split-paid-label" *ngIf="getShareSettledAmount(share.id) > 0">
+            (&#8377;{{ getShareSettledAmount(share.id) | number:'1.2-2' }} paid)
+          </span>
+        </span>
       </div>
       <div class="expanded-footer">
         <div class="created-info">
@@ -65,6 +81,9 @@
         </div>
 
         <div class="action-btns" *ngIf="confirmingDeleteId !== expense.id">
+          <button class="settlements-btn" (click)="viewSettlements.emit({ expenseId: expense.id }); $event.stopPropagation()">
+            <i class="fas fa-receipt"></i> Settlements
+          </button>
           <button class="edit-btn" (click)="openEdit(expense, $event)">
             <i class="fas fa-pencil-alt"></i> Edit
           </button>

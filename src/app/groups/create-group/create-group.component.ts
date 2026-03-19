@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-create-group',
@@ -14,7 +15,7 @@ export class CreateGroupComponent {
     description: ''
   };
 
-  private readonly apiUrl = 'https://localhost:7032/api/groups';
+  private readonly apiUrl = `${environment.apiBaseUrl}/groups`;
 
   constructor(
     private http: HttpClient,

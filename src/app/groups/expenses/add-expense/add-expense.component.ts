@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 interface MemberSplit {
   id: number;
@@ -31,12 +32,13 @@ export class AddExpenseComponent implements OnInit {
   submitting: boolean = false;
   errorMessage: string = '';
 
-  private readonly apiUrl = 'https://localhost:7032/api/groups';
+  private readonly apiUrl = `${environment.apiBaseUrl}/groups`;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.expenseDate = new Date().toISOString().split('T')[0];
+    const now = new Date();
+    this.expenseDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 
     this.memberSplits = this.members.map(m => ({
       id: m.id,
@@ -176,8 +178,8 @@ export class AddExpenseComponent implements OnInit {
         },
         error: err => {
           this.submitting = false;
-          if (err.error?.errors?.message) {
-            this.errorMessage = err.error.errors.message;
+          if (err.error?.errors?.[0]?.message) {
+            this.errorMessage = err.error.errors[0].message;
           } else {
             this.errorMessage = 'Failed to save expense. Please try again.';
           }

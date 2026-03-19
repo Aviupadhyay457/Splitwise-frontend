@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 interface EmailVerificationResponse {
   statusCode: number;
@@ -38,7 +39,7 @@ export class VerifyEmailComponent implements OnInit {
     }
 
     this.http.get<EmailVerificationResponse>(
-      `https://localhost:7032/api/email-confirmations?token=${encodeURIComponent(token)}`
+      `${environment.apiBaseUrl}/email-confirmations?token=${encodeURIComponent(token)}`
     ).subscribe({
       next: () => {
         this.state = 'success';

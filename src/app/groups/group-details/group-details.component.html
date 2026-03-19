@@ -66,8 +66,10 @@
     [currentUserId]="currentUserId"
     [loading]="loadingExpenses"
     [groupId]="groupId"
+    [groupSettlements]="groupSettlements"
     (expenseDeleted)="onExpenseAdded()"
-    (expenseUpdated)="onExpenseAdded()">
+    (expenseUpdated)="onExpenseAdded()"
+    (viewSettlements)="onViewSettlements($event)">
   </app-expense-list>
 
 </div>
