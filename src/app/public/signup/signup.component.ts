@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Md5 } from 'ts-md5';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'signup',
@@ -34,7 +35,7 @@ export class SignupComponent {
 
     this.isLoading = true;
 
-    this.http.post<any>('https://localhost:7032/api/users', jsonInput).subscribe({
+    this.http.post<any>(`${environment.apiBaseUrl}/users`, jsonInput).subscribe({
       next: () => {
         this.isLoading = false;
         this.router.navigate(['/check-email'], { state: { email: form.value.email } });

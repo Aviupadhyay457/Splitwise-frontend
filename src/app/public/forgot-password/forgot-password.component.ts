@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 interface PasswordResetMeta {
   requestId: string;
@@ -30,7 +31,7 @@ export class ForgotPasswordComponent {
   OnFormSubmitted(form: NgForm) {
     this.isLoading = true;
     const body = { email: form.value.email };
-    this.http.post<PasswordResetResponse>('https://localhost:7032/api/password-resets', body)
+    this.http.post<PasswordResetResponse>(`${environment.apiBaseUrl}/password-resets`, body)
       .subscribe({
         next: (res) => {
           this.response = res;

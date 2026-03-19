@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+ 
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.component.html',
   styleUrls: ['./friends.component.css']
 })
 export class FriendsComponent implements OnInit {
-
+ 
   friends:any[] = [];
   nonFriends:any[] = [];
   pendingInvites:any[] = [];
@@ -32,12 +32,12 @@ export class FriendsComponent implements OnInit {
   pendingApi = "https://localhost:7032/api/friendships-pendingInvites";
 
   constructor(private http:HttpClient) {}
-
+ 
   ngOnInit(): void {
     this.loadFriends();
     this.loadPendingInvites();
   }
-
+ 
   getHeaders(){
     const token = localStorage.getItem('token') ?? '';
     return new HttpHeaders({
@@ -137,13 +137,13 @@ export class FriendsComponent implements OnInit {
       this.nonFriends = res.data;
     });
   }
-
+ 
   toggleUser(id:number){
     this.selectedUsers.includes(id)
       ? this.selectedUsers = this.selectedUsers.filter(x=>x!==id)
       : this.selectedUsers.push(id);
   }
-
+ 
   addFriends(){
     const body = { friendUserId: this.selectedUsers };
 

@@ -29,13 +29,13 @@ import { CreateGroupComponent } from './groups/create-group/create-group.compone
 import { EditGroupComponent } from './groups/edit-group/edit-group.component';
 import { GroupDetailsComponent } from './groups/group-details/group-details.component';
 import { GroupMembersComponent } from './groups/group-members/group-members.component';
-import { ExpenseListComponent } from './groups/expense-list/expense-list.component';
-import { AddExpenseComponent } from './groups/add-expense/add-expense.component';
-import { EditExpenseComponent } from './groups/edit-expense/edit-expense.component';
+import { ExpenseListComponent } from './groups/expenses/expense-list/expense-list.component';
+import { AddExpenseComponent } from './groups/expenses/add-expense/add-expense.component';
+import { EditExpenseComponent } from './groups/expenses/edit-expense/edit-expense.component';
+import { ExpenseSettlementComponent } from './groups/settlements/expense-settlement.component';
 import { ActivityComponent } from './activity/activity.component';
 import { FriendsComponent } from './friends/friends.component';
 import { AccountComponent } from './account/account.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +61,7 @@ import { AccountComponent } from './account/account.component';
     ExpenseListComponent,
     AddExpenseComponent,
     EditExpenseComponent,
+    ExpenseSettlementComponent,
     ActivityComponent,
     FriendsComponent,
     AccountComponent,

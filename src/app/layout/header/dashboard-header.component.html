@@ -1,10 +1,34 @@
 <header class="dashboard-header">
   <div class="dashboard-header-logo">
     <a routerLink="/dashboard">
-      <img src="assets/png/moneysplit-logo-1.png" alt="Moneysplit" />
+      <img src="assets/png/moneysplit-logo-3.png" alt="Moneysplit" />
     </a>
   </div>
-  <div class="dashboard-header-user">
-    <span>{{ userEmail }}</span>
+
+  <div class="user-menu">
+    <div class="dropdown-backdrop" *ngIf="dropdownOpen || confirmingLogout" (click)="closeAll()"></div>
+
+    <div class="user-trigger" (click)="toggleDropdown()">
+      <span class="user-name">{{ userName }}</span>
+      <i class="fas fa-chevron-down user-chevron" [class.rotated]="dropdownOpen || confirmingLogout"></i>
+    </div>
+
+    <div class="user-dropdown" *ngIf="dropdownOpen && !confirmingLogout">
+      <button class="dropdown-item" (click)="navigateAccount()">
+        <i class="fas fa-gear"></i> Account
+      </button>
+      <div class="dropdown-divider"></div>
+      <button class="dropdown-item logout-item" (click)="requestLogout()">
+        <i class="fas fa-right-from-bracket"></i> Log out
+      </button>
+    </div>
+
+    <div class="logout-confirm-box" *ngIf="confirmingLogout">
+      <p class="logout-confirm-text">Sure you want to log out?</p>
+      <div class="logout-confirm-actions">
+        <button class="btn-cancel-logout" (click)="cancelLogout()">Cancel</button>
+        <button class="btn-confirm-logout" (click)="confirmLogout()">Log out</button>
+      </div>
+    </div>
   </div>
 </header>

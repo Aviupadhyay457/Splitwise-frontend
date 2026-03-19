@@ -1,35 +1,78 @@
 <nav class="sidebar">
-  <ul>
-    <li>
-      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <i class="fa-solid fa-house"></i>
-        <span>Dashboard</span>
-      </a>
-    </li>
-    <li>
-      <a routerLink="/dashboard/groups" routerLinkActive="active">
-        <i class="fa-solid fa-users"></i>
-        <span>Groups</span>
-      </a>
-    </li>
-    <li>
-      <a routerLink="/dashboard/activity" routerLinkActive="active">
-        <i class="fa-solid fa-chart-line"></i>
-        <span>Activity</span>
-      </a>
-    </li>
-    <li>
-      <a routerLink="/dashboard/friends" routerLinkActive="active">
-        <i class="fa-solid fa-user-group"></i>
-        <span>Friends</span>
-      </a>
-    </li>
-    <li>
-      <a routerLink="/dashboard/account" routerLinkActive="active">
-        <i class="fa-solid fa-gear"></i>
-        <span>Account</span>
-      </a>
-    </li>
-  </ul>
-  <button class="logout-btn" (click)="logout()">Log out</button>
+
+  <!-- Brand -->
+  <div class="sidebar-brand">
+    <img src="assets/png/moneysplit-logo-3.png" alt="MoneySplit" class="brand-logo" />
+  </div>
+
+  <!-- Navigation -->
+  <div class="sidebar-nav">
+    <p class="nav-section-label">Navigation</p>
+    <ul>
+      <li>
+        <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/dashboard/groups" routerLinkActive="active">
+          <i class="fa-solid fa-users"></i>
+          <span>Groups</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/dashboard/activity" routerLinkActive="active">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Activity</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/dashboard/friends" routerLinkActive="active">
+          <i class="fa-solid fa-user-group"></i>
+          <span>Friends</span>
+        </a>
+      </li>
+    </ul>
+
+    <p class="nav-section-label settings-label">Settings</p>
+    <ul>
+      <li>
+        <a routerLink="/dashboard/account" routerLinkActive="active">
+          <i class="fa-solid fa-gear"></i>
+          <span>Account</span>
+        </a>
+      </li>
+      <li>
+        <button class="nav-logout-btn" (click)="requestLogout()">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Log out</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- User Card (display only) -->
+  <div class="sidebar-user">
+    <div class="user-card">
+      <div class="user-avatar">{{ getUserInitials() }}</div>
+      <div class="user-info">
+        <span class="user-name">{{ userName }}</span>
+        <span class="user-email">{{ userEmail }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Confirmation Modal -->
+  <div class="logout-modal-backdrop" *ngIf="confirmingLogout" (click)="cancelLogout()">
+    <div class="logout-modal" (click)="$event.stopPropagation()">
+      <p class="logout-modal-title">Log out?</p>
+      <p class="logout-modal-sub">You'll need to sign in again to access your account.</p>
+      <div class="logout-modal-actions">
+        <button class="btn-cancel-logout" (click)="cancelLogout()">Cancel</button>
+        <button class="btn-confirm-logout" (click)="confirmLogout()">Log out</button>
+      </div>
+    </div>
+  </div>
+
 </nav>

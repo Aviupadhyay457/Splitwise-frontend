@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 interface MemberSplit {
   id: number;
@@ -32,7 +33,7 @@ export class EditExpenseComponent implements OnInit {
   submitting: boolean = false;
   errorMessage: string = '';
 
-  private readonly apiUrl = 'https://localhost:7032/api/groups';
+  private readonly apiUrl = `${environment.apiBaseUrl}/groups`;
 
   constructor(private http: HttpClient) {}
 
@@ -182,8 +183,8 @@ export class EditExpenseComponent implements OnInit {
       },
       error: err => {
         this.submitting = false;
-        if (err.error?.errors?.message) {
-          this.errorMessage = err.error.errors.message;
+        if (err.error?.errors?.[0]?.message) {
+          this.errorMessage = err.error.errors[0].message;
         } else {
           this.errorMessage = 'Failed to update expense. Please try again.';
         }

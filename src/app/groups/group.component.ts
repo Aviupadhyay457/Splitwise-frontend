@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-group',
@@ -10,7 +11,7 @@ export class GroupComponent implements OnInit {
 
   groups: any[] = [];
 
-  private readonly apiUrl = 'https://localhost:7032/api/groups';
+  private readonly apiUrl = `${environment.apiBaseUrl}/groups`;
 
   constructor(private http: HttpClient) {}
 
@@ -57,7 +58,7 @@ export class GroupComponent implements OnInit {
     .subscribe({
       next: (res) => {
         if (res.success) {
-          alert(res.message); // "Group deleted successfully"
+          alert(res.message);
           this.getGroups();
         }
       },

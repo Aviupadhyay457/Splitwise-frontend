@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-edit-group',
@@ -22,7 +23,7 @@ export class EditGroupComponent implements OnInit {
   selectedUsers: number[] = [];
   showAddModal = false;
 
-  private apiUrl = 'https://localhost:7032/api';
+  private apiUrl = environment.apiBaseUrl;
 
   constructor(
     private route: ActivatedRoute,

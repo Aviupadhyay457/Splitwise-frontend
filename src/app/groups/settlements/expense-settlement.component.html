@@ -1,0 +1,218 @@
+<div class="settlement-page">
+
+  <!-- Skeleton -->
+  <div class="skeleton-container" *ngIf="loadingPage">
+    <div class="skeleton-header"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+  </div>
+
+  <ng-container *ngIf="!loadingPage">
+
+    <!-- Header -->
+    <div class="page-header">
+      <button class="back-btn" (click)="back()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      <div class="expense-title-row" *ngIf="expense">
+        <div class="expense-title-info">
+          <h1 class="expense-title">{{ expense.description }}</h1>
+          <p class="expense-meta">
+            Paid by {{ getMemberName(expense.paidByGroupMemberId) }}
+            &nbsp;·&nbsp;
+            {{ formatDate(expense.expenseDate) }}
+          </p>
+        </div>
+        <span class="expense-total-badge">&#8377;{{ expense.totalAmount | number:'1.2-2' }}</span>
+      </div>
+      <p class="not-found-msg" *ngIf="!expense">Expense not found.</p>
+    </div>
+
+    <!-- Share Cards -->
+    <div class="shares-section" *ngIf="expense">
+      <p class="section-label">SETTLEMENT BREAKDOWN</p>
+
+      <div class="share-card" *ngFor="let share of sortedShares()">
+
+        <!-- Card Header -->
+        <div class="share-header">
+          <div class="share-member-row">
+            <i class="fas fa-user-circle share-icon"
+               [class.icon-you]="isMyShare(share)"
+               [class.icon-other]="!isMyShare(share)"></i>
+            <span class="share-member-name">{{ getMemberName(share.groupMemberId) }}</span>
+            <span class="badge-you" *ngIf="isMyShare(share)">You</span>
+            <span class="badge-settled" *ngIf="computeRemaining(share.amount, settlementsMap[share.id] ?? []) <= 0">
+              <i class="fas fa-check"></i> Settled
+            </span>
+          </div>
+          <span class="share-amount-label">&#8377;{{ share.amount | number:'1.2-2' }}</span>
+        </div>
+
+        <!-- Creditor own share note -->
+        <div class="creditor-share-note" *ngIf="isCreditorOwnShare(share)">
+          <i class="fas fa-crown"></i>
+          <span *ngIf="iAmCreditor()">You paid for this expense, no settlement needed from you.</span>
+          <span *ngIf="!iAmCreditor()">{{ getMemberName(expense.paidByGroupMemberId) }} paid for this expense</span>
+        </div>
+
+        <!-- Progress Bar -->
+        <ng-container *ngIf="!isCreditorOwnShare(share)">
+        <div class="progress-track">
+          <div
+            class="progress-fill"
+            [style.width.%]="computeProgressPercent(share.amount, settlementsMap[share.id] ?? [])">
+          </div>
+        </div>
+        <div class="progress-label">
+          <span>
+            &#8377;{{ (share.amount - computeRemaining(share.amount, settlementsMap[share.id] ?? [])) | number:'1.2-2' }}
+            of &#8377;{{ share.amount | number:'1.2-2' }} paid
+            ({{ computeProgressPercent(share.amount, settlementsMap[share.id] ?? []) }}%)
+          </span>
+        </div>
+
+        <!-- Settle Up section -->
+        <div class="settle-up-section"
+             *ngIf="!isCreditorOwnShare(share) && computeRemaining(share.amount, settlementsMap[share.id] ?? []) > 0">
+
+          <div class="settle-up-footer">
+            <span class="remaining-label">
+              Remaining: <strong>&#8377;{{ computeRemaining(share.amount, settlementsMap[share.id] ?? []) | number:'1.2-2' }}</strong>
+            </span>
+            <button
+              class="settle-up-btn"
+              *ngIf="settleUpShareId !== share.id"
+              (click)="openSettleUp(share.id)">
+              <i class="fas fa-hand-holding-usd"></i> Settle Up
+            </button>
+            <button
+              class="cancel-settle-btn"
+              *ngIf="settleUpShareId === share.id"
+              (click)="closeSettleUp()">
+              Cancel
+            </button>
+          </div>
+
+          <!-- Inline Settle Up Panel -->
+          <div class="settle-up-panel" *ngIf="settleUpShareId === share.id">
+            <div class="settle-up-fields">
+              <input
+                class="settle-input"
+                type="number"
+                min="0.01"
+                [max]="computeRemaining(share.amount, settlementsMap[share.id] ?? [])"
+                [(ngModel)]="settleUpAmount"
+                name="settleUpAmount"
+                placeholder="Amount (max ₹{{ computeRemaining(share.amount, settlementsMap[share.id] ?? []) | number:'1.2-2' }})">
+              <input
+                class="settle-input"
+                type="date"
+                [(ngModel)]="settleUpDate"
+                name="settleUpDate"
+                [min]="expense?.expenseDate">
+              <button
+                class="btn-record"
+                [disabled]="submitting"
+                (click)="submitSettleUp(share)">
+                {{ submitting ? 'Recording...' : 'Record Payment' }}
+              </button>
+            </div>
+            <p class="settle-error" *ngIf="settlementError">{{ settlementError }}</p>
+          </div>
+
+        </div>
+
+        <!-- Fully Settled Footer -->
+        <div class="settled-footer"
+             *ngIf="computeRemaining(share.amount, settlementsMap[share.id] ?? []) <= 0">
+          <i class="fas fa-check-circle settled-check"></i>
+          <span class="settled-text">Fully Settled</span>
+        </div>
+
+        <!-- Settlement History -->
+        <div class="settlement-history" *ngIf="(settlementsMap[share.id] ?? []).length > 0">
+          <div class="history-header" (click)="toggleHistory(share.id)">
+            <p class="history-label">PAYMENT HISTORY ({{ (settlementsMap[share.id] ?? []).length }})</p>
+            <i class="fas history-chevron"
+               [class.fa-chevron-down]="expandedHistoryShareId !== share.id"
+               [class.fa-chevron-up]="expandedHistoryShareId === share.id"></i>
+          </div>
+
+          <ng-container *ngIf="expandedHistoryShareId === share.id">
+            <div class="settlement-row" *ngFor="let s of sortedSettlements(share.id)">
+
+              <ng-container *ngIf="editingSettlement?.id === s.id && editingSettlement?.shareId === share.id; else viewMode">
+                <!-- Inline Edit Form -->
+                <div class="inline-edit-form">
+                  <div class="inline-edit-fields">
+                    <i class="fas fa-pencil-alt edit-icon-sm"></i>
+                    <input
+                      class="settle-input"
+                      type="number"
+                      min="0.01"
+                      [(ngModel)]="editAmount"
+                      name="editAmount"
+                      placeholder="New amount">
+                    <input
+                      class="settle-input"
+                      type="date"
+                      [(ngModel)]="editDate"
+                      name="editDate"
+                      [min]="expense?.expenseDate">
+                    <button class="btn-record" [disabled]="editSubmitting" (click)="submitEdit(share)">
+                      {{ editSubmitting ? 'Saving...' : 'Save' }}
+                    </button>
+                    <button class="btn-cancel" (click)="closeEdit()">Cancel</button>
+                  </div>
+                  <p class="settle-error" *ngIf="editError">{{ editError }}</p>
+                </div>
+              </ng-container>
+
+              <ng-template #viewMode>
+                <div class="settlement-entry">
+                  <div class="settlement-entry-left">
+                    <i class="fas fa-check-circle payment-icon"></i>
+                    <div class="settlement-entry-info">
+                      <span class="settlement-amount">&#8377;{{ s.amount | number:'1.2-2' }}</span>
+                      <span class="settlement-date">{{ formatDate(s.settlementDate) }}</span>
+                    </div>
+                  </div>
+
+                  <div class="settlement-actions">
+                    <span class="settlement-created-at"><i class="fas fa-info-circle"></i> {{ formatDate(s.createdAt) }}</span>
+                    <ng-container *ngIf="confirmingDeleteId === s.id; else actionBtns">
+                      <span class="confirm-text">Remove this payment?</span>
+                      <button class="btn-cancel-sm" (click)="cancelDeleteSettlement()">No</button>
+                      <button
+                        class="btn-delete-sm"
+                        [disabled]="deletingId === s.id"
+                        (click)="deleteSettlement(s.id, share.id)">
+                        {{ deletingId === s.id ? '...' : 'Yes' }}
+                      </button>
+                    </ng-container>
+                    <ng-template #actionBtns>
+                      <button class="btn-action edit-action" (click)="openEdit(s, share.id)">
+                        <i class="fas fa-pencil-alt"></i>
+                      </button>
+                      <button class="btn-action remove-action" (click)="requestDeleteSettlement(s.id)">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </ng-template>
+                  </div>
+                </div>
+              </ng-template>
+
+            </div>
+          </ng-container>
+        </div>
+
+        </ng-container>
+
+      </div>
+    </div>
+
+  </ng-container>
+
+</div>
