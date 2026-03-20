@@ -1,79 +1,113 @@
 <div class="friend-page">
 
-  <div class="page-header">
-    <h2>Friends</h2>
-
-    <button class="primary-btn"
-    (click)="openAddFriend()">
-      + Add Friend
-    </button>
+  <!-- TOAST -->
+  <div *ngIf="showToast" class="toast" [ngClass]="toastType">
+    {{toastMessage}}
   </div>
 
-  <!-- FRIEND LIST -->
+  <!-- HEADER -->
+  <div class="page-header">
+    <h2>Your Friends</h2>
 
-  <div class="friend-list">
+    <div class="header-actions">
+      <button class="primary-btn" (click)="openAddFriend()">
+        + Add Friend
+      </button>
 
-    <div class="friend-card"
-    *ngFor="let f of friends">
+      <button class="secondary-btn" (click)="openInviteModal()">
+        ✉ Invite by Email
+      </button>
+    </div>
+  </div>
 
-      <div class="friend-name">
-        {{f.firstName}} {{f.lastName}}
+  <!-- FRIENDS TOGGLE -->
+  <div class="toggle-header" (click)="toggleFriends()">
+    <span>Friends ({{friends.length}})</span>
+    <span>{{showFriends ? '▲' : '▼'}}</span>
+  </div>
+
+  <div *ngIf="showFriends" class="friend-list">
+    <div class="friend-card" *ngFor="let f of friends">
+      {{f.firstName}} {{f.lastName}}
+    </div>
+  </div>
+
+  <!-- PENDING TOGGLE -->
+  <div class="toggle-header" (click)="togglePending()">
+    <span>Pending Invitations ({{pendingInvites.length}})</span>
+    <span>{{showPending ? '▲' : '▼'}}</span>
+  </div>
+
+  <div *ngIf="showPending" class="pending-list">
+
+    <div class="pending-card" *ngFor="let p of pendingInvites">
+
+      <div class="pending-info">
+        <div class="pending-email">{{p.email}}</div>
+        <span class="pending-badge">Pending</span>
       </div>
 
+      <button class="resend-btn"
+              (click)="resendInvite(p.email)">
+        Resend
+      </button>
+
     </div>
+
+    <p *ngIf="pendingInvites.length === 0" class="empty-text">
+      No pending invitations
+    </p>
 
   </div>
 
 </div>
 
-
 <!-- ADD FRIEND MODAL -->
-
-<div class="modal-backdrop"
-*ngIf="showAddModal">
-
+<div class="modal-backdrop" *ngIf="showAddModal">
   <div class="modal">
 
     <div class="modal-header">
-
       <h3>Add Friends</h3>
-
-      <button
-      class="close-btn"
-      (click)="showAddModal=false">
-      ✕
-      </button>
-
+      <button class="close-btn" (click)="showAddModal=false">✕</button>
     </div>
 
     <div class="user-list">
-
-      <div
-      class="user-item"
-      *ngFor="let u of nonFriends">
-
+      <div class="user-item" *ngFor="let u of nonFriends">
         <label>
-
-          <input
-          type="checkbox"
-          (change)="toggleUser(u.id)">
-
+          <input type="checkbox" (change)="toggleUser(u.id)">
           {{u.firstName}} {{u.lastName}}
-
         </label>
-
       </div>
-
     </div>
 
-    <button
-    class="primary-btn add-btn"
-    (click)="addFriends()">
-
+    <button class="primary-btn add-btn" (click)="addFriends()">
       Add Selected Friends
-
     </button>
 
   </div>
+</div>
 
+<!-- INVITE MODAL -->
+<div class="modal-backdrop" *ngIf="showInviteModal">
+  <div class="modal">
+
+    <div class="modal-header">
+      <h3>Invite Friend via Email</h3>
+      <button class="close-btn" (click)="closeInviteModal()">✕</button>
+    </div>
+
+    <div class="invite-body">
+      <input type="email"
+             [(ngModel)]="inviteEmail"
+             placeholder="Enter email"
+             class="email-input">
+
+      <button class="primary-btn"
+              [disabled]="!inviteEmail"
+              (click)="sendInvitation()">
+        Send Invitation
+      </button>
+    </div>
+
+  </div>
 </div>
