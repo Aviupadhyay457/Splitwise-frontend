@@ -1,1 +1,89 @@
-p { padding: 40px; color: #333; }
+.activity-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+/* HEADER */
+.activity-header {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333; /* theme */
+}
+
+/* EMPTY */
+.empty-text {
+  color: #888;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* ROW */
+.activity-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 4px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: 0.2s;
+}
+
+.activity-row:hover {
+  background: #fafafa;
+}
+
+/* TEXT */
+.activity-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* TIME */
+.activity-time {
+  font-size: 12px;
+  white-space: nowrap;
+  color: #777; /* ✅ fixed timestamp color */
+}
+
+/* 🎨 TYPE COLORS */
+
+/* Invitation */
+.invitation {
+  color: #ff9800;
+}
+
+/* Friend */
+.friend {
+  color: #4caf50;
+}
+
+/* Group */
+.group {
+  color: #9147ff;
+}
+
+/* GroupMember */
+.groupmember {
+  color: #2196f3;
+}
+
+/* Expense */
+.expense {
+  color: #f44336;
+}
+
+/* Share */
+.share {
+  color: #009688;
+}
+
+/* Settlement */
+.settlement {
+  color: #3f51b5;
+}
+
+/* User */
+.user {
+  color: #607d8b;
+}

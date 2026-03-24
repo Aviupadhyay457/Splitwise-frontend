@@ -1,1 +1,30 @@
-<p>This is activity.</p>
+<div class="activity-container">
+
+  <!-- HEADER -->
+  <div class="activity-header">
+    My Activities
+  </div>
+
+  <!-- EMPTY -->
+  <div *ngIf="activities.length === 0" class="empty-text">
+    No activities found
+  </div>
+
+  <!-- LIST -->
+  <div *ngFor="let item of activities"
+       class="activity-row"
+       [ngClass]="getActivityClass(item.type)">
+
+    <!-- MESSAGE -->
+    <div class="activity-text">
+      {{ item.message }}
+    </div>
+
+    <!-- DATE -->
+    <div class="activity-time">
+      {{ formatDate(item.activityDate) }}
+    </div>
+
+  </div>
+
+</div>
