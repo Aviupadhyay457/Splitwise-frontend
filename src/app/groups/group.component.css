@@ -1,6 +1,4 @@
-/* =========================
-   GROUP PAGE LAYOUT
-========================= */
+
 
 .group-page {
   height: 100vh;
@@ -12,9 +10,6 @@
   box-sizing: border-box;
 }
 
-/* =========================
-   HEADER SECTION
-========================= */
 
 .group-header {
   display: flex;
@@ -30,9 +25,6 @@
   color: #333;
 }
 
-/* =========================
-   PRIMARY BUTTON
-========================= */
 
 .create-btn {
   background-color: #9147ff;
@@ -50,9 +42,6 @@
   transform: translateY(-2px);
 }
 
-/* =========================
-   GROUP LIST (SCROLL AREA)
-========================= */
 
 .group-grid {
   flex: 1;
@@ -75,9 +64,6 @@
   border-radius: 10px;
 }
 
-/* =========================
-   GROUP CARD
-========================= */
 
 .group-card {
   background: #ffffff;
@@ -112,9 +98,6 @@
   color: #777;
 }
 
-/* =========================
-   EMPTY STATE
-========================= */
 
 .empty {
   text-align: center;
@@ -124,9 +107,6 @@
 }
 
 
-/* =========================
-   ACTION BUTTONS
-========================= */
 
 .action-row {
   margin-top: 15px;

@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
     credentialsString=''
     statusMessage: string | null = null;
     statusSuccess = false;
+    isLoading = false;
+    errorMessage: string | null = null;
 
     constructor(private http: HttpClient, private router: Router) {}
 
@@ -39,26 +41,25 @@ export class LoginComponent implements OnInit {
     this.passwordType="text"
     }
     OnFormSubmitted(form:NgForm){
-      console.log(form)
+      this.errorMessage = null;
+      this.isLoading = true;
       this.hashedPassword=Md5.hashStr(form.value.password)
       this.credentialsString=btoa(`"hashedPassword":"${this.hashedPassword}"`)
       const jsonInput={
         "email":form.value.email,
         "password":this.credentialsString
       }
-      console.log(jsonInput)
       this.http.post(`${environment.apiBaseUrl}/login`, jsonInput)
       .subscribe({
         next: (res: any) => {
+          this.isLoading = false;
           localStorage.setItem('token', res.data.token);
-          localStorage.setItem('userEmail', form.value.email);
           localStorage.setItem('userId', String(res.data.id));
-          localStorage.setItem('userName', `${res.data.firstName} ${res.data.lastName}`);
           this.router.navigate(['/dashboard']);
         },
         error: (err) => {
-          console.error(err);
-          alert("sign in failed")
+          this.isLoading = false;
+          this.errorMessage = err?.error?.errors?.[0]?.message ?? 'Sign in failed. Please try again.';
         }
       });
     }

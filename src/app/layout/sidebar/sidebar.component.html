@@ -34,45 +34,51 @@
         </a>
       </li>
     </ul>
-
-    <p class="nav-section-label settings-label">Settings</p>
-    <ul>
-      <li>
-        <a routerLink="/dashboard/account" routerLinkActive="active">
-          <i class="fa-solid fa-gear"></i>
-          <span>Account</span>
-        </a>
-      </li>
-      <li>
-        <button class="nav-logout-btn" (click)="requestLogout()">
-          <i class="fa-solid fa-right-from-bracket"></i>
-          <span>Log out</span>
-        </button>
-      </li>
-    </ul>
   </div>
 
-  <!-- User Card (display only) -->
+  <!-- User Card -->
   <div class="sidebar-user">
-    <div class="user-card">
+
+    <!-- Popover menu -->
+    <div class="user-popover" *ngIf="popoverOpen">
+      <button class="popover-item" (click)="goToAccount()">
+        <i class="fa-solid fa-user"></i>
+        <span>Account</span>
+      </button>
+      <div class="popover-divider"></div>
+      <button class="popover-item popover-item-logout" (click)="requestLogout()">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span>Log out</span>
+      </button>
+    </div>
+
+    <div
+      class="user-card"
+      [class.active]="isAccountRoute()"
+      (click)="togglePopover()">
       <div class="user-avatar">{{ getUserInitials() }}</div>
       <div class="user-info">
         <span class="user-name">{{ userName }}</span>
         <span class="user-email">{{ userEmail }}</span>
       </div>
+      <i class="fa-solid fa-sort user-sort-icon"></i>
     </div>
-  </div>
 
-  <!-- Logout Confirmation Modal -->
-  <div class="logout-modal-backdrop" *ngIf="confirmingLogout" (click)="cancelLogout()">
-    <div class="logout-modal" (click)="$event.stopPropagation()">
-      <p class="logout-modal-title">Log out?</p>
-      <p class="logout-modal-sub">You'll need to sign in again to access your account.</p>
-      <div class="logout-modal-actions">
-        <button class="btn-cancel-logout" (click)="cancelLogout()">Cancel</button>
-        <button class="btn-confirm-logout" (click)="confirmLogout()">Log out</button>
-      </div>
-    </div>
   </div>
 
 </nav>
+
+<!-- Logout confirmation modal -->
+<div class="logout-overlay" *ngIf="logoutConfirming" (click)="cancelLogout()">
+  <div class="logout-modal" (click)="$event.stopPropagation()">
+    <div class="logout-modal-icon">
+      <i class="fa-solid fa-arrow-right-from-bracket"></i>
+    </div>
+    <h3 class="logout-modal-title">Log out?</h3>
+    <p class="logout-modal-body">You'll need to sign in again to access your account.</p>
+    <div class="logout-modal-actions">
+      <button class="btn-logout-cancel" (click)="cancelLogout()">Cancel</button>
+      <button class="btn-logout-confirm" (click)="confirmLogout()">Yes, log out</button>
+    </div>
+  </div>
+</div>

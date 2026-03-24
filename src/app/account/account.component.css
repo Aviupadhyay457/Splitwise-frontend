@@ -1,1 +1,412 @@
-p { padding: 40px; color: #333; }
+/* ── Page shell ─────────────────────────────────────────────── */
+.account-page {
+  padding: 40px 48px;
+  max-width: 760px;
+}
+
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 4px;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: #888;
+  margin: 0;
+}
+
+/* ── Profile identity bar ───────────────────────────────────── */
+.profile-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.profile-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #9147ff;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+
+.profile-fullname {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.profile-since {
+  font-size: 13px;
+  color: #999;
+  margin-top: 2px;
+}
+
+/* ── Divider ────────────────────────────────────────────────── */
+.section-divider {
+  height: 1px;
+  background: #f0f0f0;
+  margin: 0;
+}
+
+/* ── Settings section ───────────────────────────────────────── */
+.settings-section {
+  padding: 28px 0;
+}
+
+.section-meta {
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 4px;
+}
+
+.section-desc {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+/* ── Form fields ────────────────────────────────────────────── */
+.name-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+}
+
+.field-group input {
+  padding: 9px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+  color: #1a1a2e;
+}
+
+.field-group input:focus {
+  border-color: #9147ff;
+}
+
+.field-inline-label {
+  margin-bottom: 14px;
+}
+
+.email-current {
+  font-size: 14px;
+  color: #1a1a2e;
+  padding: 9px 12px;
+  background: #f8f8f8;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+/* Password field with toggle */
+.password-wrap {
+  position: relative;
+}
+
+.password-wrap input {
+  width: 100%;
+  padding-right: 38px;
+}
+
+.toggle-pass {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #aaa;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-pass:hover {
+  color: #555;
+}
+
+/* ── Feedback messages ──────────────────────────────────────── */
+.feedback-row {
+  margin-bottom: 12px;
+}
+
+.msg-success {
+  font-size: 13px;
+  color: #2e7d32;
+}
+
+.msg-error {
+  font-size: 13px;
+  color: #dc2626;
+}
+
+/* ── Action row ─────────────────────────────────────────────── */
+.action-row {
+  display: flex;
+  align-items: center;
+}
+
+.btn-primary {
+  background: #9147ff;
+  color: #fff;
+  border: none;
+  padding: 9px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #7a34e6;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Security section buttons ───────────────────────────────── */
+.security-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.logout-row {
+  display: flex;
+  align-items: center;
+}
+
+.logout-confirm-inline {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logout-confirm-text {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.logout-confirm-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.popover-btn-cancel {
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  color: #555;
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.popover-btn-cancel:hover {
+  background: #ebebeb;
+}
+
+.popover-btn-confirm {
+  background: #1a1a2e;
+  color: #fff;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.popover-btn-confirm:hover {
+  background: #2d2d4e;
+}
+
+.btn-outline {
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 9px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, border-color 0.2s;
+  font-family: inherit;
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: #f5f5f5;
+  border-color: #bbb;
+}
+
+.btn-danger-outline {
+  background: #fff;
+  color: #dc2626;
+  border: 1px solid #f5c6c6;
+  padding: 9px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, border-color 0.2s;
+  font-family: inherit;
+}
+
+.btn-danger-outline:hover {
+  background: #fff5f5;
+  border-color: #e57373;
+}
+
+/* ── Modal ──────────────────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-box {
+  background: #fff;
+  border-radius: 14px;
+  padding: 36px 32px 28px;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+}
+
+
+.modal-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 12px;
+}
+
+.modal-body {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+.modal-field {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.btn-danger {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  padding: 9px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+.btn-danger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Shimmer skeleton ───────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -700px 0; }
+  100% { background-position: 700px 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
+  background-size: 700px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 6px;
+}
+
+.shimmer-title {
+  height: 16px;
+  width: 160px;
+  margin-bottom: 10px;
+}
+
+.shimmer-subtitle {
+  height: 13px;
+  width: 260px;
+  margin-bottom: 20px;
+}
+
+.shimmer-input {
+  height: 40px;
+  border-radius: 8px;
+  flex: 1;
+}

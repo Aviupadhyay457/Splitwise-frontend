@@ -116,7 +116,8 @@
                 class="btn-record"
                 [disabled]="submitting"
                 (click)="submitSettleUp(share)">
-                {{ submitting ? 'Recording...' : 'Record Payment' }}
+                <span class="btn-spinner btn-spinner-sm" *ngIf="submitting"></span>
+                <span *ngIf="!submitting">Record Payment</span>
               </button>
             </div>
             <p class="settle-error" *ngIf="settlementError">{{ settlementError }}</p>
@@ -162,7 +163,8 @@
                       name="editDate"
                       [min]="expense?.expenseDate">
                     <button class="btn-record" [disabled]="editSubmitting" (click)="submitEdit(share)">
-                      {{ editSubmitting ? 'Saving...' : 'Save' }}
+                      <span class="btn-spinner btn-spinner-sm" *ngIf="editSubmitting"></span>
+                      <span *ngIf="!editSubmitting">Save</span>
                     </button>
                     <button class="btn-cancel" (click)="closeEdit()">Cancel</button>
                   </div>
@@ -189,7 +191,8 @@
                         class="btn-delete-sm"
                         [disabled]="deletingId === s.id"
                         (click)="deleteSettlement(s.id, share.id)">
-                        {{ deletingId === s.id ? '...' : 'Yes' }}
+                        <span class="btn-spinner btn-spinner-xs" *ngIf="deletingId === s.id"></span>
+                        <span *ngIf="deletingId !== s.id">Yes</span>
                       </button>
                     </ng-container>
                     <ng-template #actionBtns>

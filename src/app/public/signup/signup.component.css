@@ -62,7 +62,7 @@
     font-size: 1rem;
 }
 .label-container i.fa-circle-xmark{
-    color:#f25022
+    color:#ef4444
 }
 .label-container i.fa-circle-check{
     color:#9147FF
@@ -85,7 +85,7 @@ input:focus {
   }
 
 input.ng-invalid.ng-dirty{
-    border:3px solid #f25022;
+    border:3px solid #ef4444;
 }
 input.ng-valid.ng-dirty{
     border:3px solid #9147FF;
@@ -243,7 +243,7 @@ button:hover{
 }
 
 .email-exists-border {
-    border: 2px solid #f25022 !important;
+    border: 2px solid #ef4444 !important;
 }
 
 
@@ -257,7 +257,7 @@ button:hover{
     font-size: 1rem;
     flex-shrink: 0;
     margin-top: 0.1rem;
-    color: #f25022;
+    color: #ef4444;
 }
 
 .nudge-text {
@@ -265,7 +265,7 @@ button:hover{
     flex-direction: column;
     gap: 0.6rem;
     font-size: 0.875rem;
-    color: #f25022;
+    color: #ef4444;
     line-height: 1.5;
 }
 
@@ -275,7 +275,7 @@ button:hover{
 }
 
 .nudge-login-btn {
-    background-color: #f25022;
+    background-color: #ef4444;
     color: #ffffff;
     border: none;
     border-radius: 9999px;

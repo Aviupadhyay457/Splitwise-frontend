@@ -102,7 +102,8 @@
             class="btn-confirm-delete"
             [disabled]="deletingExpenseId === expense.id"
             (click)="confirmDelete(expense.id, $event)">
-            {{ deletingExpenseId === expense.id ? 'Deleting...' : 'Yes, Delete' }}
+            <span class="btn-spinner btn-spinner-sm" *ngIf="deletingExpenseId === expense.id"></span>
+            <span *ngIf="deletingExpenseId !== expense.id">Yes, Delete</span>
           </button>
         </div>
       </div>

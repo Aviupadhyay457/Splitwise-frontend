@@ -1,21 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   userName: string = '';
   userEmail: string = '';
-  confirmingLogout: boolean = false;
+  popoverOpen = false;
+  logoutConfirming = false;
 
-  constructor(private router: Router) {}
+  private profileUpdatedHandler = () => this.loadProfile();
+
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    this.userName = localStorage.getItem('userName') ?? '';
-    this.userEmail = localStorage.getItem('userEmail') ?? '';
+    this.loadProfile();
+    window.addEventListener('profile-updated', this.profileUpdatedHandler);
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('profile-updated', this.profileUpdatedHandler);
+  }
+
+  loadProfile(): void {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    this.http.get<any>(`${environment.apiBaseUrl}/users/me`, { headers }).subscribe({
+      next: (res) => {
+        this.userName = `${res.data.firstName} ${res.data.lastName}`;
+        this.userEmail = res.data.email;
+      }
+    });
   }
 
   getUserInitials(): string {
@@ -26,16 +46,43 @@ export class SidebarComponent implements OnInit {
     return this.userName.slice(0, 2).toUpperCase();
   }
 
+  isAccountRoute(): boolean {
+    return this.router.url.startsWith('/dashboard/account');
+  }
+
+  togglePopover(): void {
+    this.popoverOpen = !this.popoverOpen;
+  }
+
+  closePopover(): void {
+    this.popoverOpen = false;
+  }
+
+  goToAccount(): void {
+    this.popoverOpen = false;
+    this.router.navigate(['/dashboard/account']);
+  }
+
   requestLogout(): void {
-    this.confirmingLogout = true;
+    this.popoverOpen = false;
+    this.logoutConfirming = true;
   }
 
   cancelLogout(): void {
-    this.confirmingLogout = false;
+    this.logoutConfirming = false;
   }
 
   confirmLogout(): void {
     localStorage.clear();
-    this.router.navigate(['/']);
+    this.logoutConfirming = false;
+    this.router.navigate(['/Login']);
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.sidebar-user')) {
+      this.popoverOpen = false;
+    }
   }
 }

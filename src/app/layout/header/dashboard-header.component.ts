@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-dashboard-header',
@@ -11,10 +13,16 @@ export class DashboardHeaderComponent implements OnInit {
   dropdownOpen: boolean = false;
   confirmingLogout: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    this.userName = localStorage.getItem('userName') ?? localStorage.getItem('userEmail') ?? '';
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    this.http.get<any>(`${environment.apiBaseUrl}/users/me`, { headers }).subscribe({
+      next: (res) => {
+        this.userName = `${res.data.firstName} ${res.data.lastName}`;
+      }
+    });
   }
 
   toggleDropdown(): void {

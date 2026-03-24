@@ -13,37 +13,49 @@
         <img src="assets/png/moneysplit-logo-2.png">
         <h1>Log in to Moneysplit</h1>
     </div>
+
     <form (ngSubmit)="OnFormSubmitted(loginForm)" #loginForm="ngForm">
 
-        <div class="form-element" >
+        <div class="form-element">
             <div class="label-container">
                 <label for="email">Email</label>
                 <i class="fa-solid fa-circle-xmark" *ngIf="loginEmail.invalid && loginEmail.dirty"></i>
                 <i class="fa-solid fa-circle-check" *ngIf="loginEmail.valid && loginEmail.dirty"></i>
             </div>
-            <input type="email" name="email" id="email"  ngModel required email #loginEmail="ngModel"/>
-            <!-- <small>Invalid email</small> -->
+            <input type="email" name="email" id="email" ngModel required email #loginEmail="ngModel"/>
         </div>
 
-        <div class="form-element" >
-
+        <div class="form-element">
             <div class="label-container">
                 <label for="password">Password</label>
-                <i class="fa-solid fa-eye" (click)="hidePass()" *ngIf="passwordType==='text' && password.dirty" [ngStyle]="{color:(password.valid && password.dirty)?'#9147FF':'#f25022'}"></i>
-                <i class="fa-solid fa-eye-slash" (click)="showPass()" *ngIf="passwordType==='password'  && password.dirty"[ngStyle]="{color:(password.valid && password.dirty)?'#9147FF':'#f25022'}"></i>
+                <i class="fa-solid fa-eye" (click)="hidePass()" *ngIf="passwordType==='text' && password.dirty"></i>
+                <i class="fa-solid fa-eye-slash" (click)="showPass()" *ngIf="passwordType==='password' && password.dirty"></i>
             </div>
-
-            <input [type]='passwordType' name="password" id="password" minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" ngModel required  #password="ngModel"/>
+            <input [type]='passwordType' name="password" id="password" minlength="8" ngModel required #password="ngModel"/>
             <a routerLink="/ForgotPassword" class="forgot-pwd-link">Forgot Password?</a>
         </div>
-        
-        <input type="submit" value="Log in" class="sign-up-btn" [ngClass]="{'sign-up-btn-disabled':loginForm.invalid}" />
+
+        <!-- API error shown between fields and button -->
+        <div class="login-error-box" *ngIf="errorMessage">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span>{{ errorMessage }}</span>
+        </div>
+
+        <button
+          type="submit"
+          class="sign-up-btn"
+          [ngClass]="{'sign-up-btn-disabled': loginForm.invalid || isLoading}"
+          [disabled]="loginForm.invalid || isLoading">
+          <span class="btn-spinner btn-spinner-sm" *ngIf="isLoading"></span>
+          <span *ngIf="!isLoading">Log in</span>
+        </button>
 
     </form>
+
     <div class="seperation-line">
         <span>or</span>
     </div>
     <div class="log-in">
-        <a routerLink="/Signup">New to Splitwise? Signup here</a>
+        <a routerLink="/Signup">New to Splitwise? Sign up here</a>
     </div>
 </div>
