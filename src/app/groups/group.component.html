@@ -20,22 +20,18 @@
       </div>
 
 
-      <!-- ACTION BUTTONS -->
       <div class="action-row">
 
-        <!-- DETAILS -->
         <button class="icon-btn view"
                 [routerLink]="['/dashboard/groups/details', group.groupId]">
           <i class="fas fa-eye"></i>
         </button>
 
-        <!-- EDIT -->
         <button class="icon-btn edit"
                 [routerLink]="['/dashboard/groups/edit', group.groupId]">
           <i class="fas fa-pen"></i>
         </button>
 
-        <!-- DELETE -->
         <button class="icon-btn delete"
                 (click)="deleteGroup(group.groupId)">
           <i class="fas fa-trash"></i>

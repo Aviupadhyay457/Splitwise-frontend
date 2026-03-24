@@ -89,14 +89,16 @@
             </div>
         </div>
 
-        <input
+        <button
           type="submit"
-          [value]="isLoading ? 'Creating account...' : 'Sign up'"
           *ngIf="showFields"
           class="sign-up-btn"
           [disabled]="registrationForm.controls['password']?.value!==registrationForm.controls['confirmPassword']?.value || isLoading"
           [ngClass]="{'sign-up-btn-disabled': registrationForm.controls['password']?.value!==registrationForm.controls['confirmPassword']?.value || registrationForm.valid===false || isLoading}"
-        />
+        >
+          <span class="btn-spinner" *ngIf="isLoading"></span>
+          <span *ngIf="!isLoading">Sign up</span>
+        </button>
     
     </form>
     <button [ngClass]="{'continue-btn':true, 'continue-btn-disabled':registrationForm.controls['email']?.invalid}" [disabled]="registrationForm.controls['email']?.invalid" (click)="continueBtnClick()" *ngIf="!showFields" >Continue</button>

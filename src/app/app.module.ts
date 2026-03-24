@@ -36,6 +36,7 @@ import { ExpenseSettlementComponent } from './groups/settlements/expense-settlem
 import { ActivityComponent } from './activity/activity.component';
 import { FriendsComponent } from './friends/friends.component';
 import { AccountComponent } from './account/account.component';
+import { ConfirmEmailChangeComponent } from './public/confirm-email-change/confirm-email-change.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +66,7 @@ import { AccountComponent } from './account/account.component';
     ActivityComponent,
     FriendsComponent,
     AccountComponent,
+    ConfirmEmailChangeComponent,
   ],
   imports: [
     BrowserModule,
