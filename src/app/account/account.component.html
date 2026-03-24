@@ -1,1 +1,233 @@
-<p>This is account.</p>
+<div class="account-page">
+
+  <div class="page-header">
+    <h2>Account</h2>
+    <p class="page-subtitle">Manage your personal information and account settings.</p>
+  </div>
+
+  <ng-container *ngIf="loading">
+    <div class="settings-section">
+      <div class="shimmer shimmer-title"></div>
+      <div class="shimmer shimmer-subtitle"></div>
+      <div class="name-row">
+        <div class="shimmer shimmer-input"></div>
+        <div class="shimmer shimmer-input"></div>
+      </div>
+    </div>
+    <div class="section-divider"></div>
+    <div class="settings-section">
+      <div class="shimmer shimmer-title"></div>
+      <div class="shimmer shimmer-subtitle"></div>
+      <div class="shimmer shimmer-input"></div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!loading">
+
+    <div class="profile-bar">
+      <div class="profile-avatar">{{ getInitials() }}</div>
+      <div>
+        <div class="profile-fullname">{{ firstName }} {{ lastName }}</div>
+        <div class="profile-since">Member since {{ getMemberSince() }}</div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="settings-section">
+      <div class="section-meta">
+        <h3 class="section-title">Full name</h3>
+        <p class="section-desc">Update your first and last name.</p>
+      </div>
+      <div class="name-row">
+        <div class="field-group">
+          <label>First name</label>
+          <input type="text" [(ngModel)]="editFirstName" placeholder="First name" />
+        </div>
+        <div class="field-group">
+          <label>Last name</label>
+          <input type="text" [(ngModel)]="editLastName" placeholder="Last name" />
+        </div>
+      </div>
+      <div class="feedback-row" *ngIf="nameSuccess">
+        <span class="msg-success"><i class="fas fa-check-circle"></i> {{ nameSuccess }}</span>
+      </div>
+      <div class="feedback-row" *ngIf="nameError">
+        <span class="msg-error"><i class="fas fa-exclamation-circle"></i> {{ nameError }}</span>
+      </div>
+      <div class="action-row">
+        <button class="btn-primary" (click)="saveName()" [disabled]="nameSubmitting">
+          <span class="btn-spinner" *ngIf="nameSubmitting"></span>
+          <span *ngIf="!nameSubmitting">Save changes</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="settings-section">
+      <div class="section-meta">
+        <h3 class="section-title">Contact email</h3>
+        <p class="section-desc">A verification link will be sent to your new email address.</p>
+      </div>
+      <div class="field-group field-inline-label">
+        <label>Current email</label>
+        <div class="email-current">{{ email }}</div>
+      </div>
+      <div class="name-row">
+        <div class="field-group">
+          <label>New email</label>
+          <input type="email" [(ngModel)]="newEmail" placeholder="Enter new email" />
+        </div>
+        <div class="field-group">
+          <label>Current password</label>
+          <div class="password-wrap">
+            <input [type]="showEmailPassword ? 'text' : 'password'" [(ngModel)]="emailPassword" placeholder="Confirm your password" />
+            <button class="toggle-pass" type="button" (click)="showEmailPassword = !showEmailPassword">
+              <i [class]="showEmailPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="feedback-row" *ngIf="emailSuccess">
+        <span class="msg-success"><i class="fas fa-check-circle"></i> {{ emailSuccess }}</span>
+      </div>
+      <div class="feedback-row" *ngIf="emailError">
+        <span class="msg-error"><i class="fas fa-exclamation-circle"></i> {{ emailError }}</span>
+      </div>
+      <div class="action-row">
+        <button class="btn-primary" (click)="requestEmailChange()" [disabled]="emailSubmitting">
+          <span class="btn-spinner" *ngIf="emailSubmitting"></span>
+          <span *ngIf="!emailSubmitting">Change email</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="settings-section">
+      <div class="section-meta">
+        <h3 class="section-title">Password</h3>
+        <p class="section-desc">Modify your current password.</p>
+      </div>
+      <div class="name-row">
+        <div class="field-group">
+          <label>Current password</label>
+          <div class="password-wrap">
+            <input [type]="showCurrentPassword ? 'text' : 'password'" [(ngModel)]="currentPassword" placeholder="Enter current password" />
+            <button class="toggle-pass" type="button" (click)="showCurrentPassword = !showCurrentPassword">
+              <i [class]="showCurrentPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </button>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>New password</label>
+          <div class="password-wrap">
+            <input [type]="showNewPassword ? 'text' : 'password'" [(ngModel)]="newPassword" placeholder="Enter new password" />
+            <button class="toggle-pass" type="button" (click)="showNewPassword = !showNewPassword">
+              <i [class]="showNewPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="feedback-row" *ngIf="passwordSuccess">
+        <span class="msg-success"><i class="fas fa-check-circle"></i> {{ passwordSuccess }}</span>
+      </div>
+      <div class="feedback-row" *ngIf="passwordError">
+        <span class="msg-error"><i class="fas fa-exclamation-circle"></i> {{ passwordError }}</span>
+      </div>
+      <div class="action-row">
+        <button class="btn-primary" (click)="changePassword()" [disabled]="passwordSubmitting">
+          <span class="btn-spinner" *ngIf="passwordSubmitting"></span>
+          <span *ngIf="!passwordSubmitting">Change password</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="settings-section">
+      <div class="section-meta">
+        <h3 class="section-title">Account security</h3>
+        <p class="section-desc">Manage your account access and security settings.</p>
+      </div>
+      <div class="security-actions">
+        <div class="logout-row">
+          <button class="btn-outline" *ngIf="!logoutConfirming" (click)="requestLogout()">
+            <i class="fas fa-right-from-bracket"></i> Log out
+          </button>
+          <div class="logout-confirm-inline" *ngIf="logoutConfirming">
+            <span class="logout-confirm-text">Log out of your account?</span>
+            <div class="logout-confirm-btns">
+              <button class="popover-btn-cancel" (click)="cancelLogout()">Cancel</button>
+              <button class="popover-btn-confirm" (click)="logout()">Yes, log out</button>
+            </div>
+          </div>
+        </div>
+        <button class="btn-danger-outline" (click)="openDeleteWarning()">
+          <i class="fas fa-trash-can"></i> Delete my account
+        </button>
+      </div>
+    </div>
+
+  </ng-container>
+
+</div>
+
+<div class="modal-backdrop" *ngIf="deleteStep > 0" (click)="closeDeleteModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+
+    <ng-container *ngIf="deleteStep === 1">
+      <h3 class="modal-title">Delete your account?</h3>
+      <p class="modal-body">
+        This action is <strong>permanent and cannot be undone</strong> from the app.
+        Your expenses, group history, and all data will be retained but your account will be
+        deactivated. The only way to recover it is by contacting support.
+      </p>
+      <div class="modal-actions">
+        <button class="btn-outline" (click)="closeDeleteModal()">Cancel</button>
+        <button class="btn-danger" (click)="proceedToPasswordEntry()">I understand, continue</button>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="deleteStep === 2">
+      <h3 class="modal-title">Confirm your password</h3>
+      <p class="modal-body">Enter your current password to proceed with account deletion.</p>
+      <div class="field-group modal-field">
+        <label>Password</label>
+        <div class="password-wrap">
+          <input [type]="showDeletePassword ? 'text' : 'password'" [(ngModel)]="deletePassword" placeholder="Enter your password" />
+          <button class="toggle-pass" type="button" (click)="showDeletePassword = !showDeletePassword">
+            <i [class]="showDeletePassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+          </button>
+        </div>
+      </div>
+      <div class="feedback-row" *ngIf="deleteError">
+        <span class="msg-error"><i class="fas fa-exclamation-circle"></i> {{ deleteError }}</span>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-outline" (click)="closeDeleteModal()">Cancel</button>
+        <button class="btn-danger" (click)="proceedToFinalConfirm()">Continue</button>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="deleteStep === 3">
+      <h3 class="modal-title">Final confirmation, are you sure?</h3>
+      <p class="modal-body">
+        You are about to permanently deactivate your account.
+        This cannot be reversed from the app. Click <strong>Delete account</strong> to confirm.
+      </p>
+      <div class="feedback-row" *ngIf="deleteError">
+        <span class="msg-error"><i class="fas fa-exclamation-circle"></i> {{ deleteError }}</span>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-outline" (click)="closeDeleteModal()" [disabled]="deleteSubmitting">Cancel</button>
+        <button class="btn-danger" (click)="confirmDelete()" [disabled]="deleteSubmitting">
+          <span class="btn-spinner" *ngIf="deleteSubmitting"></span>
+          <span *ngIf="!deleteSubmitting">Delete account</span>
+        </button>
+      </div>
+    </ng-container>
+
+  </div>
+</div>

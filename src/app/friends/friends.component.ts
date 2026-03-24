@@ -1,37 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
- 
+import { environment } from '../../environments/environment';
+
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.component.html',
   styleUrls: ['./friends.component.css']
 })
 export class FriendsComponent implements OnInit {
- 
-  friends:any[] = [];
-  nonFriends:any[] = [];
-  pendingInvites:any[] = [];
+
+  friends: any[] = [];
+  nonFriends: any[] = [];
+  pendingInvites: any[] = [];
 
   showAddModal = false;
-  selectedUsers:number[] = [];
+  selectedUsers: number[] = [];
 
   showInviteModal = false;
-  inviteEmail:string = "";
+  inviteEmail = '';
 
-  // ✅ toggles
   showFriends = true;
   showPending = true;
 
-  // ✅ toast
-  toastMessage = "";
-  toastType = ""; // success | warning | info
+  toastMessage = '';
+  toastType = '';
   showToast = false;
 
-  baseUrl = "https://localhost:7032/api/friendships";
-  inviteApi = "https://localhost:7032/api/friendships-invitations";
-  pendingApi = "https://localhost:7032/api/friendships-pendingInvites";
+  private readonly apiUrl = environment.apiBaseUrl;
 
-  constructor(private http:HttpClient) {}
+  constructor(private http: HttpClient) {}
  
   ngOnInit(): void {
     this.loadFriends();
@@ -98,88 +95,68 @@ export class FriendsComponent implements OnInit {
 
   /* ================= FRIENDS ================= */
 
-  loadFriends(){
-    this.http.get<any>(this.baseUrl,{headers:this.getHeaders()})
-    .subscribe(res=>{
-      this.friends = res.data;
-    });
+  getInitials(member: any): string {
+    return ((member.firstName?.[0] ?? '') + (member.lastName?.[0] ?? '')).toUpperCase();
   }
 
-  /* ================= PENDING ================= */
-
-  loadPendingInvites(){
-    this.http.get<any>(this.pendingApi,{headers:this.getHeaders()})
-    .subscribe(res=>{
-      this.pendingInvites = Array.isArray(res.data)
-        ? res.data
-        : res.data ? [res.data] : [];
-    });
+  loadFriends(): void {
+    this.http.get<any>(`${this.apiUrl}/friendships`, { headers: this.getHeaders() })
+      .subscribe(res => { this.friends = res.data; });
   }
 
-  /* ================= RESEND ================= */
-
-  resendInvite(email:string){
-    this.http.post<any>(this.inviteApi, {email}, {headers:this.getHeaders()})
-    .subscribe(res=>{
-      this.showNotification(res.data.status);
-      this.loadPendingInvites();
-    });
+  loadPendingInvites(): void {
+    this.http.get<any>(`${this.apiUrl}/friendships-pendingInvites`, { headers: this.getHeaders() })
+      .subscribe(res => {
+        this.pendingInvites = Array.isArray(res.data) ? res.data : res.data ? [res.data] : [];
+      });
   }
 
-  /* ================= ADD FRIEND ================= */
+  resendInvite(email: string): void {
+    this.http.post<any>(`${this.apiUrl}/friendships-invitations`, { email }, { headers: this.getHeaders() })
+      .subscribe(res => {
+        this.showNotification(res.data.status);
+        this.loadPendingInvites();
+      });
+  }
 
-  openAddFriend(){
+  openAddFriend(): void {
     this.showAddModal = true;
-
-    this.http.get<any>(`${this.baseUrl}-nonFriends`,
-    {headers:this.getHeaders()})
-    .subscribe(res=>{
-      this.nonFriends = res.data;
-    });
+    this.http.get<any>(`${this.apiUrl}/friendships-nonFriends`, { headers: this.getHeaders() })
+      .subscribe(res => { this.nonFriends = res.data; });
   }
- 
-  toggleUser(id:number){
+
+  toggleUser(id: number): void {
     this.selectedUsers.includes(id)
-      ? this.selectedUsers = this.selectedUsers.filter(x=>x!==id)
+      ? this.selectedUsers = this.selectedUsers.filter(x => x !== id)
       : this.selectedUsers.push(id);
   }
- 
-  addFriends(){
-    const body = { friendUserId: this.selectedUsers };
 
-    this.http.post<any>(this.baseUrl, body,
-    {headers:this.getHeaders()})
-    .subscribe(res=>{
-      this.showAddModal = false;
-      this.selectedUsers = [];
-      this.loadFriends();
-
-      this.showNotification(res.data?.status);
-    });
+  addFriends(): void {
+    this.http.post<any>(`${this.apiUrl}/friendships`, { friendUserId: this.selectedUsers }, { headers: this.getHeaders() })
+      .subscribe(res => {
+        this.showAddModal = false;
+        this.selectedUsers = [];
+        this.loadFriends();
+        this.showNotification(res.data?.status);
+      });
   }
 
-  /* ================= INVITE ================= */
-
-  openInviteModal(){
+  openInviteModal(): void {
     this.showInviteModal = true;
-    this.inviteEmail = "";
+    this.inviteEmail = '';
   }
 
-  closeInviteModal(){
+  closeInviteModal(): void {
     this.showInviteModal = false;
   }
 
-  sendInvitation(){
-    this.http.post<any>(this.inviteApi,
-      { email: this.inviteEmail },
-      { headers:this.getHeaders() }
-    )
-    .subscribe(res=>{
-      this.showInviteModal = false;
-      this.inviteEmail = "";
-
-      this.showNotification(res.data.status);
-      this.loadPendingInvites();
-    });
+  sendInvitation(): void {
+    this.http.post<any>(`${this.apiUrl}/friendships-invitations`, { email: this.inviteEmail }, { headers: this.getHeaders() })
+      .subscribe(res => {
+        this.showInviteModal = false;
+        this.inviteEmail = '';
+        this.showNotification(res.data.status);
+        this.loadPendingInvites();
+      });
   }
 }

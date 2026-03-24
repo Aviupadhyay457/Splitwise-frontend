@@ -1,0 +1,63 @@
+
+<div class="page-loading" *ngIf="state === 'loading'">
+  <img src="assets/png/moneysplit-logo-1.png" class="loader-logo" alt="Loading" />
+</div>
+
+<div class="result-card" *ngIf="state === 'success'">
+  <div class="card-body">
+    <div class="app-brand">
+      <img src="assets/png/moneysplit-logo-1.png" class="brand-logo" alt="Moneysplit" />
+    </div>
+    <div class="illustration-wrap">
+      <img src="assets/jpg/email-verification-success-illustration.jpg" alt="Email changed" />
+    </div>
+    <div class="state-content">
+      <div class="status-badge badge-success">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>Confirmed</span>
+      </div>
+      <h1 class="state-heading">Email updated!</h1>
+      <p class="state-message">
+        Your email address has been changed successfully. Please log in with your new email.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="result-card" *ngIf="state === 'expired'">
+  <div class="card-body">
+    <div class="app-brand">
+      <img src="assets/png/moneysplit-logo-1.png" class="brand-logo" alt="Moneysplit" />
+    </div>
+    <div class="illustration-wrap">
+      <img src="assets/jpg/email-verification-failed-illustration-2.jpg" alt="Link expired" />
+    </div>
+    <div class="state-content">
+      <div class="status-badge badge-expired">
+        <i class="fa-solid fa-clock"></i>
+        <span>Expired</span>
+      </div>
+      <h1 class="state-heading">Link expired</h1>
+      <p class="state-message">{{ errorMessage }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="result-card" *ngIf="state === 'invalid'">
+  <div class="card-body">
+    <div class="app-brand">
+      <img src="assets/png/moneysplit-logo-1.png" class="brand-logo" alt="Moneysplit" />
+    </div>
+    <div class="illustration-wrap">
+      <img src="assets/jpg/email-verification-failed-illustration.jpg" alt="Invalid link" />
+    </div>
+    <div class="state-content">
+      <div class="status-badge badge-invalid">
+        <i class="fa-solid fa-circle-xmark"></i>
+        <span>Invalid</span>
+      </div>
+      <h1 class="state-heading">Oops!</h1>
+      <p class="state-message">{{ errorMessage }}</p>
+    </div>
+  </div>
+</div>

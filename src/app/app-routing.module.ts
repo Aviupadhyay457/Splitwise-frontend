@@ -25,8 +25,8 @@ import { ExpenseSettlementComponent } from './groups/settlements/expense-settlem
 import { ActivityComponent } from './activity/activity.component';
 import { FriendsComponent } from './friends/friends.component';
 import { AccountComponent } from './account/account.component';
+import { ConfirmEmailChangeComponent } from './public/confirm-email-change/confirm-email-change.component';
 
-// Guard
 import { AuthGuard } from './auth/auth.guard';
 import { PublicGuard } from './auth/public.guard';
 
@@ -45,6 +45,7 @@ const routes: Routes = [
   { path: 'ForgotPassword', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
+  { path: 'confirm-email-change', component: ConfirmEmailChangeComponent },
   { path: 'check-email', component: CheckEmailComponent },
   {
     path: 'dashboard',
